@@ -6,63 +6,7 @@
     font-weight: 400;
 }
 
-/* Variables for easy customization */
-:root {
-    --primary-font: "PP Neue Montreal", sans-serif;
-    --secondary-font: "Space Mono", mono;
-    --tetriary-font: "Mrs Saint Delafield", serif;
-    --primary-color: #e0e0e0;
-    --secondary-color: rgba(255, 255, 255, 0.5);
-    --quote-size: 8vw;
-    --author-size: 0.75rem;
-    --cursor-size: 20px;
-    --ghost-color: #000000;
-    --eye-glow-color: #ffff00;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    background-color: #111;
-    letter-spacing: -0.03em;
-    position: relative;
-    color: var(--primary-color);
-}
-
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(to bottom, #222, transparent);
-    pointer-events: none;
-    z-index: 2;
-}
-
-body::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center,
-            transparent 0%,
-            rgba(34, 34, 34, 0.85) 70%);
-    pointer-events: none;
-    z-index: 3;
-}
 
 canvas {
     position: absolute;
@@ -86,6 +30,5 @@ canvas {
     z-index: 20;
     padding: 20px;
     text-align: center;
-    color: var(--primary-color);
     pointer-events: none;
 }

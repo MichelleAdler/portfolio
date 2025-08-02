@@ -281,7 +281,7 @@ function updateMouseEffect() {
 // Draw grid lines and dots. Dot brightness is based on proximity (modulated by mouseEffectStrength).
 function drawWeb() {
     // Clear the canvas with a dark gray fill.
-    ctx.fillStyle = "#222";
+    ctx.fillStyle = "#F7DAE7";
     ctx.fillRect(0, 0, cw, ch);
 
     // Horizontal grid lines.
@@ -294,7 +294,7 @@ function drawWeb() {
             else ctx.lineTo(p.x, p.y);
         }
         let alpha = 0.6 + (y / pointsY) * 0.3;
-        ctx.strokeStyle = `rgba(50,50,50,${alpha})`;
+        ctx.strokeStyle = `rgba(211,140,167,${alpha})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
     }
@@ -308,7 +308,7 @@ function drawWeb() {
             if (y === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
         }
-        ctx.strokeStyle = "rgba(50,50,50,0.5)";
+        ctx.strokeStyle = "rgba(211,140,167,0.5)";
         ctx.lineWidth = 1.2;
         ctx.stroke();
     }
@@ -324,7 +324,7 @@ function drawWeb() {
                 50 + mouseEffectStrength * (1 - d / mouseInfluenceRadius) * 150
             );
         }
-        ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
+        ctx.fillStyle = `rgba(211,140,167,0.5`;
         ctx.beginPath();
         const radius = p.pinned ? 4 : 2;
         ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);

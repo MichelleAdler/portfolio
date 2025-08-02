@@ -320,7 +320,7 @@ function updateMouseEffect() {
 }
 
 function drawWeb() {
-    ctx.fillStyle = "#222";
+    ctx.fillStyle = "rgba(247, 218, 231, 1)";
     ctx.fillRect(0, 0, cw, ch);
 
     for (let y = 0; y < pointsY; y++) {
@@ -331,8 +331,7 @@ function drawWeb() {
             if (x === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
         }
-        let alpha = 0.6 + (y / pointsY) * 0.3;
-        ctx.strokeStyle = `rgba(50,50,50,${alpha})`;
+        ctx.strokeStyle = "rgba(211,140,167,1)"; // <-- updated
         ctx.lineWidth = 1.5;
         ctx.stroke();
     }
@@ -345,7 +344,7 @@ function drawWeb() {
             if (y === 0) ctx.moveTo(p.x, p.y);
             else ctx.lineTo(p.x, p.y);
         }
-        ctx.strokeStyle = "rgba(50,50,50,0.5)";
+        ctx.strokeStyle = "rgba(211,140,167,1)"; // <-- updated
         ctx.lineWidth = 1.2;
         ctx.stroke();
     }
