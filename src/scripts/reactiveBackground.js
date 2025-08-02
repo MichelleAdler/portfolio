@@ -18,18 +18,15 @@ let returnSpeed = 0.003,
 let mouseX, mouseY, prevMouseX, prevMouseY, mouseVelX, mouseVelY;
 let mouseDown = false,
     mouseDragging = false;
-let mouseInfluenceRadius = 180; // Increased influence radius
+let mouseInfluenceRadius = 180;
 
-// For staggered removal / decay of influence
-let mouseEffectStrength = 1; // Range 0 (none) to 1 (full effect)
+let mouseEffectStrength = 1;
 let lastMouseMoveTime = Date.now();
-const idleThreshold = 300; // Time (ms) to wait before decaying
-const decayRate = 0.01; // Decay amount per frame when idle
+const idleThreshold = 300;
+const decayRate = 0.01;
 
-// New flag: whether the mouse is on the canvas
 let mouseOnCanvas = false;
 
-// Initialize mouse state at canvas center
 function initMouse() {
     mouseX = cw / 2;
     mouseY = ch / 2;
@@ -39,7 +36,6 @@ function initMouse() {
     mouseVelY = 0;
 }
 
-// Setup simulation: create grid points and constraints.
 function initSimulation() {
     points = [];
     constraints = [];
@@ -66,7 +62,6 @@ function initSimulation() {
         }
     }
 
-    // Create constraints for horizontal, vertical, and diagonal connections.
     for (let i = 0; i < points.length; i++) {
         const x = i % pointsX;
         const y = Math.floor(i / pointsX);
@@ -100,7 +95,6 @@ function initSimulation() {
     }
 }
 
-// Resize canvas and reinitialize simulation parameters.
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -115,8 +109,7 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-// Mouse event handlers
-
+// MOUSE EVENTS
 canvas.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
     prevMouseX = mouseX;
@@ -125,8 +118,6 @@ canvas.addEventListener("mousemove", (e) => {
     mouseY = ((e.clientY - rect.top) / rect.height) * ch;
     mouseVelX = mouseX - prevMouseX;
     mouseVelY = mouseY - prevMouseY;
-
-    // Reset effect strength on movement and update last move time.
     lastMouseMoveTime = Date.now();
     mouseEffectStrength = 1;
 });
@@ -134,18 +125,7 @@ canvas.addEventListener("mousemove", (e) => {
 canvas.addEventListener("mousedown", () => {
     mouseDown = true;
     mouseDragging = false;
-    let closestDist = mouseInfluenceRadius * 0.7;
-    let selectedPoint = null;
-    for (let i = 0; i < points.length; i++) {
-        const d = Math.hypot(points[i].x - mouseX, points[i].y - mouseY);
-        if (d < closestDist) {
-            selectedPoint = i;
-            closestDist = d;
-        }
-    }
-    if (selectedPoint === null) {
-        createRipple(mouseX, mouseY);
-    }
+    selectOrRipple(mouseX, mouseY);
 });
 
 canvas.addEventListener("mouseup", () => {
@@ -156,19 +136,86 @@ canvas.addEventListener("mouseup", () => {
 canvas.addEventListener("mouseleave", () => {
     mouseDown = false;
     mouseDragging = false;
-    // Disable mouse influence when leaving canvas.
     mouseOnCanvas = false;
     mouseEffectStrength = 0;
 });
 
-canvas.addEventListener("mouseenter", (e) => {
-    // When the mouse enters, enable influence.
+canvas.addEventListener("mouseenter", () => {
     mouseOnCanvas = true;
     lastMouseMoveTime = Date.now();
     mouseEffectStrength = 1;
 });
 
-// Create a ripple effect from a given point.
+// TOUCH EVENTS (named handlers, passive: false)
+function handleTouchStart(e) {
+    e.preventDefault();
+    mouseDown = true;
+    mouseDragging = false;
+
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    mouseX = ((touch.clientX - rect.left) / rect.width) * cw;
+    mouseY = ((touch.clientY - rect.top) / rect.height) * ch;
+    prevMouseX = mouseX;
+    prevMouseY = mouseY;
+    mouseVelX = 0;
+    mouseVelY = 0;
+    mouseOnCanvas = true;
+    lastMouseMoveTime = Date.now();
+    mouseEffectStrength = 1;
+
+    selectOrRipple(mouseX, mouseY);
+}
+
+function handleTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    prevMouseX = mouseX;
+    prevMouseY = mouseY;
+    mouseX = ((touch.clientX - rect.left) / rect.width) * cw;
+    mouseY = ((touch.clientY - rect.top) / rect.height) * ch;
+    mouseVelX = mouseX - prevMouseX;
+    mouseVelY = mouseY - prevMouseY;
+    lastMouseMoveTime = Date.now();
+    mouseEffectStrength = 1;
+}
+
+function handleTouchEnd(e) {
+    e.preventDefault();
+    mouseDown = false;
+    mouseDragging = false;
+    mouseEffectStrength = 0;
+}
+
+function handleTouchCancel(e) {
+    e.preventDefault();
+    mouseDown = false;
+    mouseDragging = false;
+    mouseEffectStrength = 0;
+    mouseOnCanvas = false;
+}
+
+canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+canvas.addEventListener("touchend", handleTouchEnd, { passive: false });
+canvas.addEventListener("touchcancel", handleTouchCancel, { passive: false });
+
+function selectOrRipple(x, y) {
+    let closestDist = mouseInfluenceRadius * 0.7;
+    let selectedPoint = null;
+    for (let i = 0; i < points.length; i++) {
+        const d = Math.hypot(points[i].x - x, points[i].y - y);
+        if (d < closestDist) {
+            selectedPoint = i;
+            closestDist = d;
+        }
+    }
+    if (selectedPoint === null) {
+        createRipple(x, y);
+    }
+}
+
 function createRipple(x, y) {
     const maxDist = 300;
     for (let i = 0; i < points.length; i++) {
@@ -185,7 +232,6 @@ function createRipple(x, y) {
     }
 }
 
-// Update environmental parameters (e.g., wind).
 function updateEnvironment() {
     time += 0.01;
     windForce = Math.sin(time * 0.2) * 0.2 + Math.sin(time * 0.5) * 0.1;
@@ -193,7 +239,6 @@ function updateEnvironment() {
     if (Math.random() < 0.001) windForce *= -1;
 }
 
-// Update physics for each point.
 function updatePoints() {
     for (let i = 0; i < points.length; i++) {
         const p = points[i];
@@ -204,7 +249,7 @@ function updatePoints() {
         p.prevY = p.y;
         p.x += vx;
         p.y += vy;
-        p.y += 0.25 * p.mass; // Gravity
+        p.y += 0.25 * p.mass;
 
         p.x += Math.cos(windDirection + (p.y / ch) * 2) * windForce;
         p.y += Math.sin(windDirection + (p.x / cw) * 2) * windForce * 0.5;
@@ -220,8 +265,6 @@ function updatePoints() {
             p.y += dy * returnStrength;
         }
 
-        // Apply mouse influence only if the mouse is on canvas,
-        // not down, and while the effect strength is nonzero.
         if (!mouseDown && mouseOnCanvas && mouseEffectStrength > 0) {
             const dmx = p.x - mouseX;
             const dmy = p.y - mouseY;
@@ -239,7 +282,6 @@ function updatePoints() {
     }
 }
 
-// Solve constraints between points (simulate spring behavior).
 function solveConstraints() {
     for (let iter = 0; iter < iterations; iter++) {
         for (let i = 0; i < constraints.length; i++) {
@@ -271,20 +313,16 @@ function solveConstraints() {
     }
 }
 
-// Gradually decay the mouse effect when idle.
 function updateMouseEffect() {
     if (Date.now() - lastMouseMoveTime > idleThreshold) {
         mouseEffectStrength = Math.max(0, mouseEffectStrength - decayRate);
     }
 }
 
-// Draw grid lines and dots. Dot brightness is based on proximity (modulated by mouseEffectStrength).
 function drawWeb() {
-    // Clear the canvas with a dark gray fill.
     ctx.fillStyle = "#222";
     ctx.fillRect(0, 0, cw, ch);
 
-    // Horizontal grid lines.
     for (let y = 0; y < pointsY; y++) {
         ctx.beginPath();
         for (let x = 0; x < pointsX; x++) {
@@ -299,7 +337,6 @@ function drawWeb() {
         ctx.stroke();
     }
 
-    // Vertical grid lines.
     for (let x = 0; x < pointsX; x++) {
         ctx.beginPath();
         for (let y = 0; y < pointsY; y++) {
@@ -313,8 +350,6 @@ function drawWeb() {
         ctx.stroke();
     }
 
-    // Draw dots with brightness based on their distance from the mouse.
-    // Base brightness = 50; max brightness increase = 150.
     for (let i = 0; i < points.length; i++) {
         const p = points[i];
         const d = Math.hypot(p.x - mouseX, p.y - mouseY);
@@ -331,7 +366,6 @@ function drawWeb() {
         ctx.fill();
     }
 
-    // Optionally, show the mouse influence area when pressed.
     if (mouseDown && mouseOnCanvas) {
         ctx.beginPath();
         ctx.arc(mouseX, mouseY, 8, 0, Math.PI * 2);
@@ -347,7 +381,6 @@ function drawWeb() {
     }
 }
 
-// Main render loop.
 function render() {
     updateMouseEffect();
     updateEnvironment();
@@ -357,7 +390,6 @@ function render() {
     requestAnimationFrame(render);
 }
 
-// Generate ambient ripples periodically.
 function randomRipples() {
     if (Math.random() < 0.02 && !mouseDown) {
         createRipple(Math.random() * cw, Math.random() * ch);
