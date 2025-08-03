@@ -40,7 +40,7 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    padding: 3vh 5vw;
+    padding: 6vh 5vw;
 }
 
 header h1 {
@@ -84,9 +84,8 @@ nav a.active {
 
 .hero {
     display: none;
-    flex: 1;
     justify-content: center;
-    align-items: top;
+    align-items: flex-start;
     overflow: hidden;
 }
 
@@ -116,7 +115,11 @@ footer {
     font-weight: 400;
     color: #000;
     padding: 2vh 5vw;
-    flex-shrink: 0;
+    padding: 3vh 5vw;
+    /* flex-shrink: 0; */
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
 }
 
 .linkedin-icon {
@@ -133,7 +136,7 @@ footer {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
+    gap: 7vw;
     padding: 40px 10vw;
     overflow: hidden;
 }
