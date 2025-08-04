@@ -78,8 +78,31 @@ nav a {
 }
 
 nav a.active {
-    background: rgba(246, 246, 40, 0.17);
+    background: rgba(246, 246, 40, 0.4);
     border-radius: 4px;
+}
+
+.nav-highlight {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.highlight-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(246, 246, 40, 0.4);
+    border-radius: 4px;
+    transition: left 0.3s, width 0.3s;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.nav-link {
+    position: relative;
+    z-index: 1;
 }
 
 .hero {
