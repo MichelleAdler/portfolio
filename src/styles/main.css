@@ -105,8 +105,8 @@ nav a.active {
 .hero img {
     width: 100%;
     height: auto;
-    object-fit: cover;
-    max-height: 62vh;
+    object-fit: contain;
+    max-height: 83px;
 }
 
 .content-view.hidden {
