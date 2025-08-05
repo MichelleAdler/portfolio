@@ -25,14 +25,19 @@ body {
     width: 100%;
     font-family: 'Didact Gothic', sans-serif;
     background: #fff;
-    color: #000;
+    color: #252627;
     overflow: hidden;
 }
 
-.container {
+.page-container {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.page-content {
+    grid-row: 2;
+    grid-column: 1;
 }
 
 header {
@@ -41,6 +46,8 @@ header {
     align-items: center;
     flex-shrink: 0;
     padding: 6vh 5vw;
+    grid-row: 1;
+    grid-column: 1;
 }
 
 header h1 {
@@ -59,7 +66,7 @@ header p {
     font-weight: 400;
     font-size: 24px;
     line-height: 31px;
-    color: #000;
+    color: #013255;
     margin: 24px 0 0;
 }
 
@@ -71,7 +78,7 @@ nav a {
     font-weight: 400;
     font-size: 24px;
     line-height: 33px;
-    color: #000;
+    color: #252627;
     position: relative;
     padding: 4px 8px;
     transition: all 0.3s ease;
@@ -95,28 +102,6 @@ nav a.active {
     z-index: 1;
 }
 
-.hero {
-    display: none;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
-}
-
-.hero img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    max-height: 83px;
-}
-
-.content-view.hidden {
-    display: none;
-}
-
-.hero.hidden {
-    display: none !important;
-}
-
 footer {
     display: flex;
     justify-content: space-between;
@@ -126,13 +111,13 @@ footer {
     font-family: 'Didact Gothic', sans-serif;
     font-style: normal;
     font-weight: 400;
-    color: #000;
+    color: #252627;
     padding: 2vh 5vw;
     padding: 3vh 5vw;
-    /* flex-shrink: 0; */
-    position: fixed;
     bottom: 0px;
     width: 100vw;
+    grid-row: 3;
+    grid-column: 1;
 }
 
 .linkedin-icon {

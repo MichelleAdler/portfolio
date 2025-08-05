@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showProjects() {
         aboutView.style.display = "none";
-        heroView.style.display = "flex";
+        heroView.style.display = "grid";
         projectsBtn.classList.add("active");
         aboutBtn.classList.remove("active");
     }
