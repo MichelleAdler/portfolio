@@ -161,8 +161,8 @@
 }
 
 .slider-block img {
-    height: 5vh;
-    object-fit: contain;
+    width: 11vw;
+    object-fit: cover;
     display: block;
 }
 
