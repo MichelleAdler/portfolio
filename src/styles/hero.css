@@ -109,6 +109,7 @@
 .slider-container {
     display: flex;
     justify-content: flex-end;
+    /* make sure container fills height */
 }
 
 .slider {
@@ -128,6 +129,12 @@
     /* Firefox */
     -ms-overflow-style: none;
     /* IE and Edge */
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+
+    overflow-y: auto;
+    /* required for scrolling to work */
 }
 
 .slider::-webkit-scrollbar {
@@ -150,6 +157,7 @@
     position: relative;
     width: 29vw;
     height: 31vh;
+    scroll-snap-align: start;
 }
 
 .slider-block img {
@@ -198,9 +206,17 @@
     z-index: 2;
 }
 
+.scroll-thumb.active {
+    width: 12px;
+    height: 8px;
+    transform: scale(1.3);
+    transition: all 0.2s ease;
+}
+
 .scroll-progress {
+    transition: height 0.4s ease;
     content: "";
-    width: 2px;
+    width: 4px;
     height: 95%;
     background: #F6F628;
     pointer-events: none;
