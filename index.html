@@ -58,11 +58,14 @@
 									<span class="slider-block">
 										<img src="/src/media/projects/postnet/postnetLogo.svg" alt="PostNet Logo" />
 									</span>
+									<!-- <span class="hidden">
+									</span> -->
 								</div>
 							</div>
 						</div>
 						<div class="scroll-bar-container">
 							<div class="scroll-bar">
+								<div class="scroll-progress"></div>
 								<span class="scroll-thumb"></span>
 								<span class="scroll-thumb"></span>
 								<span class="scroll-thumb"></span>
@@ -174,6 +177,56 @@
 				showProjects();
 			});
 		</script>
+
+		<script>
+			const slider = document.querySelector('.slider');
+			const slides = document.querySelectorAll('.slider-block');
+			const thumbs = document.querySelectorAll('.scroll-thumb');
+			const progress = document.querySelector('.scroll-progress');
+			let currentIndex = 0, isThrottle = false;
+
+			function updateProgress(index) {
+				const first = thumbs[0].offsetTop;
+				const last = thumbs[thumbs.length - 1].offsetTop;
+				const gap = (last - first) / (thumbs.length - 1);
+				const h = first + gap * index;
+				progress.style.height = h + 'px';
+			}
+
+			function goTo(index) {
+				currentIndex = Math.max(0, Math.min(slides.length - 1, index));
+				// Compensate for 45deg rotation
+				const blockHeight = slides[0].offsetHeight * Math.SQRT2;
+				slider.style.transform = `translateY(-${blockHeight * currentIndex}px)`;
+				updateProgress(currentIndex);
+			}
+
+			function next() { goTo(currentIndex + 1); }
+			function prev() { goTo(currentIndex - 1); }
+
+			window.addEventListener('wheel', e => {
+				if (isThrottle) return;
+				isThrottle = true;
+				e.deltaY > 0 ? next() : prev();
+				setTimeout(() => isThrottle = false, 600);
+				e.preventDefault();
+			}, { passive: false });
+
+			let startY = 0;
+			window.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+			window.addEventListener('touchend', e => {
+				const dy = e.changedTouches[0].clientY - startY;
+				if (Math.abs(dy) > 50) dy < 0 ? next() : prev();
+			});
+
+			window.addEventListener('keydown', e => {
+				if (e.key === 'ArrowDown') next(), e.preventDefault();
+				if (e.key === 'ArrowUp') prev(), e.preventDefault();
+			});
+
+			goTo(0);
+		</script>
+
 	</body>
 
 </html>
