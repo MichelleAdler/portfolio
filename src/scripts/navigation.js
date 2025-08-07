@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const aboutView = document.getElementById("aboutView");
 
     function showAbout() {
+        document.body.classList.add("no-bg"); // ✅ remove bg image
         aboutView.style.display = "grid";
         heroView.style.display = "none";
         aboutBtn.classList.add("active");
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showProjects() {
+        document.body.classList.remove("no-bg"); // ✅ bring bg back
         aboutView.style.display = "none";
         heroView.style.display = "grid";
         projectsBtn.classList.add("active");
