@@ -82,37 +82,57 @@ header p {
     margin: 24px 0 0;
 }
 
-nav a {
-    margin-left: 20px;
-    text-decoration: none;
-    font-family: 'Akatab', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 33px;
-    color: #252627;
-    position: relative;
-    padding: 4px 8px;
-    transition: all 0.3s ease;
-}
-
-nav a.active {
-    background: #F3F8FF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-    border-radius: 4px;
-}
-
-.nav-highlight {
+.tab-container {
     position: relative;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    padding: 2px;
+    background-color: #dadadb;
+    border-radius: 9px;
+    width: 20vw;
+    justify-content: space-around;
 }
 
-.nav-link {
-    position: relative;
-    z-index: 1;
+.indicator {
+    content: "";
+    width: 50%;
+    height: 92%;
+    background: #ffffff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 9;
+    border: 0.5px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    transition: all 0.2s ease-out;
 }
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 99;
+    outline: none;
+    opacity: 0;
+}
+
+.tab_label {
+    width: 50%;
+    height: 98%;
+    position: relative;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    font-size: 16px;
+    opacity: 0.6;
+    cursor: pointer;
+    margin: 6px;
+}
+
 
 footer {
     display: flex;
@@ -147,7 +167,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 7vw;
-    padding: 40px 10vw;
+    padding: 0px 10vw;
     overflow: hidden;
 }
 
