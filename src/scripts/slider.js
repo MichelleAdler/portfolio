@@ -56,6 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentIndex = index;
                 isAnimating = false;
 
+                slides.forEach((slide, i) => {
+                    if (i === currentIndex && i !== index) {
+                        // This is the old visible slide — fade it out
+                        slide.classList.add("fade-out");
+
+                        // After fade finishes, hide it
+                        setTimeout(() => {
+                            slide.classList.add("hidden");
+                            slide.classList.remove("fade-out");
+                        }, 400); // match CSS transition
+                    }
+
+                    if (i === index) {
+                        // This is the new active slide
+                        slide.classList.remove("hidden");
+                        // Force reflow so transition kicks in (very important!)
+                        void slide.offsetWidth;
+                        slide.classList.remove("fade-out");
+                    }
+                });
+
                 if (queuedIndex !== null && queuedIndex !== currentIndex) {
                     const nextIndex = queuedIndex;
                     queuedIndex = null;
