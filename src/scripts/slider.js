@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 slider.style.transform = `translateY(${targetY}px)`;
                 currentTranslateY = targetY;
+                const previousIndex = currentIndex;
                 currentIndex = index;
+
                 isAnimating = false;
 
                 slides.forEach((slide, i) => {
-                    if (i === currentIndex && i !== index) {
-                        // This is the old visible slide — fade it out
+                    if (i === previousIndex) {
+                        // Old slide — fade it out
                         slide.classList.add("fade-out");
-
-                        // After fade finishes, hide it
                         setTimeout(() => {
                             slide.classList.add("hidden");
                             slide.classList.remove("fade-out");
@@ -69,10 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     if (i === index) {
-                        // This is the new active slide
+                        // New slide — make it visible
                         slide.classList.remove("hidden");
-                        // Force reflow so transition kicks in (very important!)
-                        void slide.offsetWidth;
+                        void slide.offsetWidth; // force reflow
                         slide.classList.remove("fade-out");
                     }
                 });
