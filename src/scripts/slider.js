@@ -3,13 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slider-block");
     const thumbs = document.querySelectorAll(".scroll-thumb");
     const progress = document.querySelector(".scroll-progress");
+    const heroView = document.getElementById("heroView");
 
     let currentIndex = 0;
     let isAnimating = false;
     let queuedIndex = null;
     let currentTranslateY = 0;
 
-    // More reliable block height
+    // Sensitivity
+    const SWIPE_THRESHOLD = 30; // px movement to trigger change
+    const WHEEL_THRESHOLD = 15; // mouse wheel sensitivity
+
+    // Get block height
     function getBlockHeight() {
         const slide = slides[0];
         const style = getComputedStyle(slide);
@@ -19,33 +24,54 @@ document.addEventListener("DOMContentLoaded", () => {
         return slide.offsetHeight + marginTop + marginBottom + gap;
     }
 
+    // Update scroll progress bar and active thumb
     function updateProgress(index) {
         const first = thumbs[0].offsetTop;
         const last = thumbs[thumbs.length - 1].offsetTop;
         const gap = (last - first) / (thumbs.length - 1);
         const h = first + gap * index;
         progress.style.height = h + 5 + "px";
-
         thumbs.forEach((thumb, i) => {
             thumb.classList.toggle("active", i === index);
         });
     }
 
+    // Show new slide and hide old one
+    function setActiveSlide(newIndex, oldIndex) {
+        slides.forEach((slide, i) => {
+            if (i === oldIndex && oldIndex !== newIndex) {
+                slide.classList.add("fade-out");
+                setTimeout(() => {
+                    slide.classList.add("hidden");
+                    slide.classList.remove("fade-out");
+                }, 400); // match your CSS fade duration
+            }
+            if (i === newIndex) {
+                slide.classList.remove("hidden");
+                void slide.offsetWidth; // force reflow
+                slide.classList.remove("fade-out");
+            }
+        });
+    }
+
+    // Animate slider to given index
     function animateTo(index) {
         isAnimating = true;
-
         const blockHeight = getBlockHeight();
         const targetY = -blockHeight * index;
         const startY = currentTranslateY;
         const duration = 400;
         const startTime = performance.now();
+        const oldIndex = currentIndex;
+
+        // Start fade and movement together
+        setActiveSlide(index, oldIndex);
 
         function animate(time) {
             const elapsed = time - startTime;
             const t = Math.min(elapsed / duration, 1);
             const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
             const currentY = startY + (targetY - startY) * ease;
-
             slider.style.transform = `translateY(${currentY}px)`;
 
             if (t < 1) {
@@ -53,28 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 slider.style.transform = `translateY(${targetY}px)`;
                 currentTranslateY = targetY;
-                const previousIndex = currentIndex;
                 currentIndex = index;
-
                 isAnimating = false;
-
-                slides.forEach((slide, i) => {
-                    if (i === previousIndex) {
-                        // Old slide — fade it out
-                        slide.classList.add("fade-out");
-                        setTimeout(() => {
-                            slide.classList.add("hidden");
-                            slide.classList.remove("fade-out");
-                        }, 400); // match CSS transition
-                    }
-
-                    if (i === index) {
-                        // New slide — make it visible
-                        slide.classList.remove("hidden");
-                        void slide.offsetWidth; // force reflow
-                        slide.classList.remove("fade-out");
-                    }
-                });
 
                 if (queuedIndex !== null && queuedIndex !== currentIndex) {
                     const nextIndex = queuedIndex;
@@ -88,14 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
         updateProgress(index);
     }
 
+    // Slide navigation
     function goTo(index) {
         const clamped = Math.max(0, Math.min(slides.length - 1, index));
-
         if (isAnimating) {
             queuedIndex = clamped;
             return;
         }
-
         if (clamped !== currentIndex) {
             animateTo(clamped);
         }
@@ -104,44 +109,76 @@ document.addEventListener("DOMContentLoaded", () => {
     function next() {
         goTo(currentIndex + 1);
     }
-
     function prev() {
         goTo(currentIndex - 1);
     }
 
-    // Wheel scroll
+    // Mouse wheel navigation
     window.addEventListener(
         "wheel",
         (e) => {
             if (!heroView.classList.contains("active")) return;
-
             if (!isAnimating) {
-                e.deltaY > 0 ? next() : prev();
+                if (e.deltaY > WHEEL_THRESHOLD) {
+                    next();
+                } else if (e.deltaY < -WHEEL_THRESHOLD) {
+                    prev();
+                }
             }
             e.preventDefault();
         },
         { passive: false }
     );
 
-    // Touch swipe
+    // Touch dragging with live feedback
     let startY = 0;
-    window.addEventListener("touchstart", (e) => {
-        startY = e.touches[0].clientY;
-    });
+    let dragStartTranslate = 0;
+    let dragging = false;
+
+    window.addEventListener(
+        "touchstart",
+        (e) => {
+            if (!heroView.classList.contains("active")) return;
+            startY = e.touches[0].clientY;
+            dragStartTranslate = currentTranslateY;
+            dragging = true;
+        },
+        { passive: true }
+    );
+
+    window.addEventListener(
+        "touchmove",
+        (e) => {
+            if (!heroView.classList.contains("active") || !dragging) return;
+            const currentY = e.touches[0].clientY;
+            const dy = currentY - startY;
+            slider.style.transform = `translateY(${dragStartTranslate + dy}px)`;
+            e.preventDefault();
+        },
+        { passive: false }
+    );
 
     window.addEventListener("touchend", (e) => {
-        if (!heroView.classList.contains("active")) return;
+        if (!heroView.classList.contains("active") || !dragging) return;
+        dragging = false;
 
-        const dy = e.changedTouches[0].clientY - startY;
-        if (Math.abs(dy) > 30) {
-            dy < 0 ? next() : prev();
+        const endY = e.changedTouches[0].clientY;
+        const dy = endY - startY;
+
+        if (Math.abs(dy) > SWIPE_THRESHOLD) {
+            if (dy < 0) {
+                next();
+            } else {
+                prev();
+            }
+        } else {
+            animateTo(currentIndex); // snap back
         }
     });
 
-    // Keyboard nav
+    // Keyboard navigation
     window.addEventListener("keydown", (e) => {
         if (!heroView.classList.contains("active")) return;
-
         if (e.key === "ArrowDown") {
             next();
             e.preventDefault();
@@ -151,14 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Recalculate on resize
     window.addEventListener("resize", () => {
-        // Recalculate transform after layout change
         const blockHeight = getBlockHeight();
         currentTranslateY = -blockHeight * currentIndex;
         slider.style.transform = `translateY(${currentTranslateY}px)`;
     });
 
-    // Make thumb dots clickable
+    // Thumb dots click
     thumbs.forEach((thumb, index) => {
         thumb.style.cursor = "pointer";
         thumb.addEventListener("click", () => {

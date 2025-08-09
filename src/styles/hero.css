@@ -234,7 +234,8 @@
 
 .slider-block {
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.9s ease 0.15s;
+    /* 150ms delay */
     pointer-events: auto;
     position: relative;
 }
@@ -246,7 +247,7 @@
 
 .slider-block.fade-out {
     opacity: 0;
-    pointer-events: none;
+    /* Match JS animation duration */
 }
 
 .slider-mask {
