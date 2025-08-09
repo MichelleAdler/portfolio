@@ -4,7 +4,7 @@
     padding: 0 5vw;
     align-items: center;
     height: 100%;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 14vw 69vw;
 }
 
 .project-content {
@@ -30,6 +30,7 @@
     grid-column: 1;
     height: 100%;
     padding-top: 6vh;
+    max-width: 14vw;
 }
 
 .project-title {
@@ -234,7 +235,8 @@
 
 .slider-block {
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.9s ease 0.15s;
+    /* 150ms delay */
     pointer-events: auto;
     position: relative;
 }
@@ -246,7 +248,7 @@
 
 .slider-block.fade-out {
     opacity: 0;
-    pointer-events: none;
+    /* Match JS animation duration */
 }
 
 .slider-mask {
@@ -266,4 +268,59 @@
 
 .villa39Card {
     background-color: #EEEEEE;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.23);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.popup-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90vw;
+    height: 70vh;
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+}
+
+.popup-content img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.popup-close {
+    position: relative;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    /* or a color that suits your popup */
+    z-index: 1001;
+}
+
+.popup-close:hover {
+    color: #f00;
+    /* Optional hover effect */
 }

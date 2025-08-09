@@ -3,13 +3,75 @@ document.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".slider-block");
     const thumbs = document.querySelectorAll(".scroll-thumb");
     const progress = document.querySelector(".scroll-progress");
+    const heroView = document.getElementById("heroView");
 
     let currentIndex = 0;
     let isAnimating = false;
     let queuedIndex = null;
     let currentTranslateY = 0;
 
-    // More reliable block height
+    const SWIPE_THRESHOLD = 30; // px movement to trigger change
+    const WHEEL_THRESHOLD = 15; // mouse wheel sensitivity
+
+    // Popup elements
+    const popupOverlay = document.querySelector(".popup-overlay");
+    const popupContent = document.querySelector(".popup-content"); // NEW: container for loaded HTML
+    const popupClose = document.querySelector(".popup-close");
+
+    // Map slide index to popup HTML file relative to your project root
+    // Make sure paths match your folder structure
+    const popupFiles = [
+        "/src/pages/postnet.html",
+        "/src/pages/hypro.html",
+        "/src/pages/doodleDev.html",
+        "/src/pages/villa39.html",
+        "/src/pages/postnet.html", // repeated as in projects array
+    ];
+
+    // The rest of your projects data is still useful for sidebar colors and text
+    const projects = [
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+        },
+        {
+            title: "Hypro",
+            desc: "Branding",
+            colors: ["#0D0D0D", "#3A3A3A", "#5A5A5A", "#AAAAAA"],
+        },
+        {
+            title: "Doodle Dev",
+            desc: "Web App",
+            colors: ["#A1BFFF", "#8FA9F8", "#5D7FF7", "#204DE8"],
+        },
+        {
+            title: "Villa 39",
+            desc: "Website",
+            colors: ["#EEEEEE", "#CCCCCC", "#AAAAAA", "#888888"],
+        },
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+        },
+    ];
+
+    const paletteDots = document.querySelectorAll(".project-sidebar .color");
+    const projectTitle = document.querySelector(".project-title");
+    const projectDesc = document.querySelector(".project-desc");
+
+    function isPopupOpen() {
+        return !popupOverlay.classList.contains("hidden");
+    }
+
+    function disableBodyScroll() {
+        document.body.style.overflow = "hidden";
+    }
+    function enableBodyScroll() {
+        document.body.style.overflow = "";
+    }
+
     function getBlockHeight() {
         const slide = slides[0];
         const style = getComputedStyle(slide);
@@ -25,27 +87,44 @@ document.addEventListener("DOMContentLoaded", () => {
         const gap = (last - first) / (thumbs.length - 1);
         const h = first + gap * index;
         progress.style.height = h + 5 + "px";
-
         thumbs.forEach((thumb, i) => {
             thumb.classList.toggle("active", i === index);
         });
     }
 
+    function setActiveSlide(newIndex, oldIndex) {
+        slides.forEach((slide, i) => {
+            if (i === oldIndex && oldIndex !== newIndex) {
+                slide.classList.add("fade-out");
+                setTimeout(() => {
+                    slide.classList.add("hidden");
+                    slide.classList.remove("fade-out");
+                }, 400);
+            }
+            if (i === newIndex) {
+                slide.classList.remove("hidden");
+                void slide.offsetWidth; // force reflow
+                slide.classList.remove("fade-out");
+            }
+        });
+    }
+
     function animateTo(index) {
         isAnimating = true;
-
         const blockHeight = getBlockHeight();
         const targetY = -blockHeight * index;
         const startY = currentTranslateY;
         const duration = 400;
         const startTime = performance.now();
+        const oldIndex = currentIndex;
+
+        setActiveSlide(index, oldIndex);
 
         function animate(time) {
             const elapsed = time - startTime;
             const t = Math.min(elapsed / duration, 1);
             const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
             const currentY = startY + (targetY - startY) * ease;
-
             slider.style.transform = `translateY(${currentY}px)`;
 
             if (t < 1) {
@@ -53,28 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 slider.style.transform = `translateY(${targetY}px)`;
                 currentTranslateY = targetY;
-                const previousIndex = currentIndex;
                 currentIndex = index;
-
                 isAnimating = false;
-
-                slides.forEach((slide, i) => {
-                    if (i === previousIndex) {
-                        // Old slide — fade it out
-                        slide.classList.add("fade-out");
-                        setTimeout(() => {
-                            slide.classList.add("hidden");
-                            slide.classList.remove("fade-out");
-                        }, 400); // match CSS transition
-                    }
-
-                    if (i === index) {
-                        // New slide — make it visible
-                        slide.classList.remove("hidden");
-                        void slide.offsetWidth; // force reflow
-                        slide.classList.remove("fade-out");
-                    }
-                });
 
                 if (queuedIndex !== null && queuedIndex !== currentIndex) {
                     const nextIndex = queuedIndex;
@@ -86,62 +145,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
         requestAnimationFrame(animate);
         updateProgress(index);
+        updateSidebar(index);
     }
 
     function goTo(index) {
         const clamped = Math.max(0, Math.min(slides.length - 1, index));
-
         if (isAnimating) {
             queuedIndex = clamped;
             return;
         }
-
         if (clamped !== currentIndex) {
             animateTo(clamped);
         }
     }
-
     function next() {
         goTo(currentIndex + 1);
     }
-
     function prev() {
         goTo(currentIndex - 1);
     }
 
-    // Wheel scroll
     window.addEventListener(
         "wheel",
         (e) => {
+            if (isPopupOpen()) return;
             if (!heroView.classList.contains("active")) return;
-
             if (!isAnimating) {
-                e.deltaY > 0 ? next() : prev();
+                if (e.deltaY > WHEEL_THRESHOLD) {
+                    next();
+                } else if (e.deltaY < -WHEEL_THRESHOLD) {
+                    prev();
+                }
             }
             e.preventDefault();
         },
         { passive: false }
     );
 
-    // Touch swipe
     let startY = 0;
-    window.addEventListener("touchstart", (e) => {
-        startY = e.touches[0].clientY;
-    });
+    let dragStartTranslate = 0;
+    let dragging = false;
+
+    window.addEventListener(
+        "touchstart",
+        (e) => {
+            if (isPopupOpen()) return;
+            if (!heroView.classList.contains("active")) return;
+            startY = e.touches[0].clientY;
+            dragStartTranslate = currentTranslateY;
+            dragging = true;
+        },
+        { passive: true }
+    );
+
+    window.addEventListener(
+        "touchmove",
+        (e) => {
+            if (isPopupOpen()) return;
+            if (!heroView.classList.contains("active") || !dragging) return;
+            const currentY = e.touches[0].clientY;
+            const dy = currentY - startY;
+            slider.style.transform = `translateY(${dragStartTranslate + dy}px)`;
+            e.preventDefault();
+        },
+        { passive: false }
+    );
 
     window.addEventListener("touchend", (e) => {
-        if (!heroView.classList.contains("active")) return;
+        if (isPopupOpen()) return;
+        if (!heroView.classList.contains("active") || !dragging) return;
+        dragging = false;
 
-        const dy = e.changedTouches[0].clientY - startY;
-        if (Math.abs(dy) > 30) {
-            dy < 0 ? next() : prev();
+        const endY = e.changedTouches[0].clientY;
+        const dy = endY - startY;
+
+        if (Math.abs(dy) > SWIPE_THRESHOLD) {
+            if (dy < 0) {
+                next();
+            } else {
+                prev();
+            }
+        } else {
+            animateTo(currentIndex); // snap back
         }
     });
 
-    // Keyboard nav
     window.addEventListener("keydown", (e) => {
+        if (isPopupOpen()) return;
         if (!heroView.classList.contains("active")) return;
-
         if (e.key === "ArrowDown") {
             next();
             e.preventDefault();
@@ -152,21 +243,76 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", () => {
-        // Recalculate transform after layout change
         const blockHeight = getBlockHeight();
         currentTranslateY = -blockHeight * currentIndex;
         slider.style.transform = `translateY(${currentTranslateY}px)`;
     });
 
-    // Make thumb dots clickable
     thumbs.forEach((thumb, index) => {
         thumb.style.cursor = "pointer";
         thumb.addEventListener("click", () => {
+            if (isPopupOpen()) return;
             goTo(index);
         });
     });
 
-    // Init
+    function updateSidebar(index) {
+        const project = projects[index];
+        paletteDots.forEach((dot, i) => {
+            dot.style.backgroundColor = project.colors[i] || "#ddd";
+        });
+        projectTitle.textContent = project.title;
+        projectDesc.textContent = project.desc;
+    }
+
+    // NEW: Load popup content from external HTML file
+    function showPopup(index) {
+        const fileUrl = popupFiles[index];
+        if (!fileUrl) {
+            popupContent.innerHTML = "<p>Sorry, no content available.</p>";
+            popupOverlay.classList.remove("hidden");
+            disableBodyScroll();
+            return;
+        }
+        fetch(fileUrl)
+            .then((response) => {
+                if (!response.ok)
+                    throw new Error("Failed to load popup content");
+                return response.text();
+            })
+            .then((html) => {
+                popupContent.innerHTML = html;
+                popupOverlay.classList.remove("hidden");
+                disableBodyScroll();
+            })
+            .catch((err) => {
+                popupContent.innerHTML = `<p>Error loading content: ${err.message}</p>`;
+                popupOverlay.classList.remove("hidden");
+                disableBodyScroll();
+            });
+    }
+
+    function closePopup() {
+        popupOverlay.classList.add("hidden");
+        popupContent.innerHTML = ""; // clear content on close
+        enableBodyScroll();
+    }
+
+    popupClose.addEventListener("click", closePopup);
+    popupOverlay.addEventListener("click", (e) => {
+        if (e.target === popupOverlay) {
+            closePopup();
+        }
+    });
+
+    slides.forEach((slide, index) => {
+        slide.style.cursor = "pointer";
+        slide.addEventListener("click", () => {
+            showPopup(index);
+        });
+    });
+
+    // Initialize
     goTo(0);
     updateProgress(0);
 });
