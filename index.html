@@ -23,14 +23,39 @@
 					<p>UX / UI | Web | Graphic Design</p>
 				</div>
 				<div class="tab-container">
-					<input type="radio" name="tab" id="tab1" class="tab tab--1 nav-link" checked />
-					<label class="tab_label" for="tab1">Projects</label>
+					<input type="radio" name="tab" id="tab1" class="tab tab--1" checked />
+					<input type="radio" name="tab" id="tab2" class="tab tab--2" />
 
-					<input type="radio" name="tab" id="tab2" class="tab tab--2 nav-link" />
-					<label class="tab_label" for="tab2">About</label>
+					<label for="tab1" class="tab_label">Projects</label>
+					<label for="tab2" class="tab_label">About</label>
 
-					<div class="indicator"></div>
+					<svg class="toggle" xmlns="http://www.w3.org/2000/svg" viewBox="-40 -20 440 200"
+						preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+						<defs>
+							<filter id="goo" x="-100%" y="-100%" width="300%" height="300%"
+								filterUnits="userSpaceOnUse">
+								<feGaussianBlur stdDeviation="10" result="blur" />
+								<feColorMatrix in="blur" mode="matrix" values="
+							      1 0 0 0 0
+							      0 1 0 0 0
+							      0 0 1 0 0
+							      0 0 0 18 -7" result="goo" />
+								<feBlend in="SourceGraphic" in2="goo" />
+							</filter>
+
+						</defs>
+
+						<g filter="url(#goo)" class="circles">
+							<rect class="toggle-circle left" rx="58" height="114" width="114" y="23" x="28"
+								fill="#EA4545" />
+							<rect class="toggle-circle-center" rx="29" height="58" width="130" y="53" x="26"
+								fill="#EA4545" />
+							<rect class="toggle-circle right" rx="58" height="114" width="114" y="23" x="212"
+								fill="#EA4545" />
+						</g>
+					</svg>
 				</div>
+
 			</header>
 
 			<div class="page-content">
