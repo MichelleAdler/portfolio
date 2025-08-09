@@ -1,38 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const nav = document.querySelector(".nav-highlight");
-    const links = Array.from(nav.querySelectorAll(".nav-link"));
-    const highlight = nav.querySelector(".highlight-bg");
-
-    // Set initial active
-    let activeIndex = 0; // "About" by default
-    links[activeIndex].classList.add("active");
-
-    links.forEach((btn, idx) => {
-        btn.addEventListener("click", () => {
-            links.forEach((l) => l.classList.remove("active"));
-            btn.classList.add("active");
-        });
-    });
-
-    const aboutBtn = document.getElementById("aboutBtn");
-    const projectsBtn = document.getElementById("projectsBtn");
+    const aboutBtn = document.getElementById("tab2");
+    const projectsBtn = document.getElementById("tab1");
     const heroView = document.getElementById("heroView");
     const aboutView = document.getElementById("aboutView");
 
+    function moveIndicatorToProjects() {
+        document.querySelector(".indicator").style.left = "0%";
+        document.querySelector(".indicator").style.margin = "0px 2px";
+    }
+
+    function moveIndicatorToAbout() {
+        document.querySelector(".indicator").style.left = "50%"; // 130 + 2
+        document.querySelector(".indicator").style.margin = "0px -2px";
+    }
+
     function showAbout() {
-        document.body.classList.add("no-bg"); // ✅ remove bg image
+        aboutBtn.checked = true;
+        moveIndicatorToAbout();
+        document.body.classList.add("no-bg");
         aboutView.style.display = "grid";
         heroView.style.display = "none";
-        aboutBtn.classList.add("active");
-        projectsBtn.classList.remove("active");
+        heroView.classList.remove("active");
+        aboutView.classList.add("active");
     }
 
     function showProjects() {
-        document.body.classList.remove("no-bg"); // ✅ bring bg back
+        projectsBtn.checked = true;
+        moveIndicatorToProjects();
+        document.body.classList.remove("no-bg");
         aboutView.style.display = "none";
         heroView.style.display = "grid";
-        projectsBtn.classList.add("active");
-        aboutBtn.classList.remove("active");
+        heroView.classList.add("active");
+        aboutView.classList.remove("active");
     }
 
     // Initialize

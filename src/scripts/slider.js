@@ -109,10 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
         goTo(currentIndex - 1);
     }
 
-    // Scroll and key handling
+    // Wheel scroll
     window.addEventListener(
         "wheel",
         (e) => {
+            if (!heroView.classList.contains("active")) return;
+
             if (!isAnimating) {
                 e.deltaY > 0 ? next() : prev();
             }
@@ -121,21 +123,32 @@ document.addEventListener("DOMContentLoaded", () => {
         { passive: false }
     );
 
+    // Touch swipe
     let startY = 0;
-    window.addEventListener(
-        "touchstart",
-        (e) => (startY = e.touches[0].clientY)
-    );
+    window.addEventListener("touchstart", (e) => {
+        startY = e.touches[0].clientY;
+    });
+
     window.addEventListener("touchend", (e) => {
+        if (!heroView.classList.contains("active")) return;
+
         const dy = e.changedTouches[0].clientY - startY;
         if (Math.abs(dy) > 30) {
             dy < 0 ? next() : prev();
         }
     });
 
+    // Keyboard nav
     window.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowDown") next(), e.preventDefault();
-        if (e.key === "ArrowUp") prev(), e.preventDefault();
+        if (!heroView.classList.contains("active")) return;
+
+        if (e.key === "ArrowDown") {
+            next();
+            e.preventDefault();
+        } else if (e.key === "ArrowUp") {
+            prev();
+            e.preventDefault();
+        }
     });
 
     window.addEventListener("resize", () => {

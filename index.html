@@ -21,11 +21,15 @@
 					<h1>Michellé Adler</h1>
 					<p>UX / UI | Web | Graphic Design</p>
 				</div>
-				<nav class="nav-highlight">
-					<a href="#" id="projectsBtn" class="nav-link active">Projects</a>
-					<a href="#" id="aboutBtn" class="nav-link">About</a>
-					<span class="highlight-bg"></span>
-				</nav>
+				<div class="tab-container">
+					<input type="radio" name="tab" id="tab1" class="tab tab--1 nav-link" checked />
+					<label class="tab_label" for="tab1">Projects</label>
+
+					<input type="radio" name="tab" id="tab2" class="tab tab--2 nav-link" />
+					<label class="tab_label" for="tab2">About</label>
+
+					<div class="indicator"></div>
+				</div>
 			</header>
 
 			<div class="page-content">
@@ -48,22 +52,20 @@
 										<span class="slider-block">
 											<img src="/src/media/projects/postnet/postnetLogo.svg" alt="PostNet Logo" />
 										</span>
-										<span class="slider-block hidden">
+										<span class="slider-block hidden hyproCard">
 											<img src="/src/media/projects/hypro/hyproLogo.svg" alt="Hypro Logo" />
 										</span>
-										<span class="slider-block hidden">
-											<img src="/src/media/projects/villa39/villa39Logo.svg"
-												alt="Villa 39 Logo" />
+										<span class="slider-block hidden doodleDevCard">
+											<img src="/src/media/projects/doodleDev/doodleDevLogo.svg"
+												alt="Doodle Dev Logo" />
 										</span>
-										<span class="slider-block hidden">
+										<span class="slider-block hidden villa39Card">
 											<img src="/src/media/projects/villa39/villa39Logo.svg"
 												alt="Villa 39 Logo" />
 										</span>
 										<span class="slider-block hidden">
 											<img src="/src/media/projects/postnet/postnetLogo.svg" alt="PostNet Logo" />
 										</span>
-										<!-- <span class="hidden">
-									</span> -->
 									</div>
 								</div>
 							</div>
