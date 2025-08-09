@@ -1,3 +1,9 @@
+:root {
+    --primary-color: #252627;
+    --secondary-color: #EA4545;
+    --background-color: #F3F8FF;
+}
+
 .hero {
     display: grid;
     width: 100vw;
@@ -37,8 +43,8 @@
     font-weight: 700;
     font-size: 30px;
     line-height: 40px;
-    color: #252627;
-    border-bottom: #252627 1px solid;
+    color: var(--primary-color);
+    border-bottom: var(--primary-color) 1px solid;
     padding-right: 2vw;
     padding-bottom: 1vh;
     font-family: 'Archivo', sans-serif;
@@ -180,8 +186,10 @@
     position: absolute;
     top: 11vh;
     right: 33vw;
-    /* width: 100%; */
     transform: rotate(-45deg);
+    max-width: 3vw;
+    width: 3vw;
+    justify-content: center;
 }
 
 .scroll-bar {
@@ -196,33 +204,34 @@
     content: "";
     width: 2px;
     height: 95%;
-    background: #013255;
+    background: var(--primary-color);
     pointer-events: none;
     display: flex;
     position: absolute;
     bottom: 2px;
+    box-shadow: -8px 8px 20px rgba(0, 0, 0, 5);
 }
 
 .scroll-thumb {
     width: 14px;
     height: 13px;
     border-radius: 50%;
-    border: 1.5px solid #F6F628;
-    background-color: #F6F628;
+    border: 1.5px solid var(--secondary-color);
+    background-color: var(--secondary-color);
     z-index: 2;
 }
 
 .scroll-thumb.active {
-    width: 12px;
-    height: 8px;
+    width: 18px;
+    height: 13px;
     transition: all 0.2s ease;
 }
 
 .scroll-progress {
     transition: height 0.4s ease;
     content: "";
-    width: 4px;
-    background: #F6F628;
+    width: 5px;
+    background: var(--secondary-color);
     pointer-events: none;
     display: flex;
     position: absolute;
@@ -268,4 +277,33 @@
 
 .villa39Card {
     background-color: #EEEEEE;
+}
+
+/* Style for the bubble tooltip */
+.tooltip {
+    position: absolute;
+    left: 50%;
+    transform: translateY(-124%);
+    transform: translateY(-1.5vh) translateX(1vw);
+    width: max-content;
+    padding: 0.6em 1em;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    border-radius: 10px;
+    background: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.scroll-thumb:hover {
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+.scroll-thumb:hover .tooltip {
+    /* Adjusted position for the bubble tooltip */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }

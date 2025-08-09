@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const popupFiles = [
         "/src/pages/postnet.html",
-        "/src/pages/hypro.html",
         "/src/pages/doodleDev.html",
+        "/src/pages/hypro.html",
         "/src/pages/villa39.html",
         "/src/pages/postnet.html",
     ];
@@ -29,16 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const projects = [
         {
             title: "Postnet",
-            desc: "App concept and design",
-            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
-        },
-        {
-            title: "Hypro Hydraulics",
             desc:
-                "Hydraulics components and services company" +
+                "Stationary and courier company" +
                 "<br><br>" +
-                "| Branding and website",
-            colors: ["#ACC5DA", "#49637A", "#2E475C", "#172A3A"],
+                "| Mobile app design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
         },
         {
             title: "Doodle Dev",
@@ -47,6 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 "<br><br>" +
                 "| Branding and website",
             colors: ["#DDF344", "#A1BFFF", "#3B4883", "#D9D9D9"],
+        },
+        {
+            title: "Hypro Hydraulics",
+            desc:
+                "Hydraulics components and services company" +
+                "<br><br>" +
+                "| Branding and website",
+            colors: ["#ACC5DA", "#49637A", "#2E475C", "#172A3A"],
         },
         {
             title: "Villa 39",
