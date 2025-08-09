@@ -14,6 +14,69 @@ document.addEventListener("DOMContentLoaded", () => {
     const SWIPE_THRESHOLD = 30; // px movement to trigger change
     const WHEEL_THRESHOLD = 15; // mouse wheel sensitivity
 
+    // Popup elements
+    const popupOverlay = document.querySelector(".popup-overlay");
+    const popupImage = document.querySelector(".popup-image");
+    const popupTitle = document.querySelector(".popup-title");
+    const popupDesc = document.querySelector(".popup-desc");
+    const popupClose = document.querySelector(".popup-close");
+
+    // Projects data (unchanged)
+    const projects = [
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
+            popupImageAlt: "PostNet Logo",
+        },
+        {
+            title: "Hypro",
+            desc: "Branding",
+            colors: ["#0D0D0D", "#3A3A3A", "#5A5A5A", "#AAAAAA"],
+            popupImageSrc: "/src/media/projects/hypro/hyproLogo.svg",
+            popupImageAlt: "Hypro Logo",
+        },
+        {
+            title: "Doodle Dev",
+            desc: "Web App",
+            colors: ["#A1BFFF", "#8FA9F8", "#5D7FF7", "#204DE8"],
+            popupImageSrc: "/src/media/projects/doodleDev/doodleDevLogo.svg",
+            popupImageAlt: "Doodle Dev Logo",
+        },
+        {
+            title: "Villa 39",
+            desc: "Website",
+            colors: ["#EEEEEE", "#CCCCCC", "#AAAAAA", "#888888"],
+            popupImageSrc: "/src/media/projects/villa39/villa39Logo.svg",
+            popupImageAlt: "Villa 39 Logo",
+        },
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
+            popupImageAlt: "PostNet Logo",
+        },
+    ];
+
+    const paletteDots = document.querySelectorAll(".project-sidebar .color");
+    const projectTitle = document.querySelector(".project-title");
+    const projectDesc = document.querySelector(".project-desc");
+
+    // Helper: Is popup open?
+    function isPopupOpen() {
+        return !popupOverlay.classList.contains("hidden");
+    }
+
+    // Disable/enable body scroll on popup open/close
+    function disableBodyScroll() {
+        document.body.style.overflow = "hidden";
+    }
+    function enableBodyScroll() {
+        document.body.style.overflow = "";
+    }
+
     // Get block height
     function getBlockHeight() {
         const slide = slides[0];
@@ -44,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     slide.classList.add("hidden");
                     slide.classList.remove("fade-out");
-                }, 400); // match your CSS fade duration
+                }, 400);
             }
             if (i === newIndex) {
                 slide.classList.remove("hidden");
@@ -92,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         requestAnimationFrame(animate);
         updateProgress(index);
+        updateSidebar(index);
     }
 
     // Slide navigation
@@ -105,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
             animateTo(clamped);
         }
     }
-
     function next() {
         goTo(currentIndex + 1);
     }
@@ -113,10 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
         goTo(currentIndex - 1);
     }
 
-    // Mouse wheel navigation
+    // Mouse wheel navigation (disabled if popup open)
     window.addEventListener(
         "wheel",
         (e) => {
+            if (isPopupOpen()) return;
             if (!heroView.classList.contains("active")) return;
             if (!isAnimating) {
                 if (e.deltaY > WHEEL_THRESHOLD) {
@@ -130,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { passive: false }
     );
 
-    // Touch dragging with live feedback
+    // Touch dragging with live feedback (disabled if popup open)
     let startY = 0;
     let dragStartTranslate = 0;
     let dragging = false;
@@ -138,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
         "touchstart",
         (e) => {
+            if (isPopupOpen()) return;
             if (!heroView.classList.contains("active")) return;
             startY = e.touches[0].clientY;
             dragStartTranslate = currentTranslateY;
@@ -149,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener(
         "touchmove",
         (e) => {
+            if (isPopupOpen()) return;
             if (!heroView.classList.contains("active") || !dragging) return;
             const currentY = e.touches[0].clientY;
             const dy = currentY - startY;
@@ -159,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     window.addEventListener("touchend", (e) => {
+        if (isPopupOpen()) return;
         if (!heroView.classList.contains("active") || !dragging) return;
         dragging = false;
 
@@ -176,8 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Keyboard navigation
+    // Keyboard navigation (disabled if popup open)
     window.addEventListener("keydown", (e) => {
+        if (isPopupOpen()) return;
         if (!heroView.classList.contains("active")) return;
         if (e.key === "ArrowDown") {
             next();
@@ -199,61 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
     thumbs.forEach((thumb, index) => {
         thumb.style.cursor = "pointer";
         thumb.addEventListener("click", () => {
+            if (isPopupOpen()) return;
             goTo(index);
         });
     });
-
-    // Init
-    goTo(0);
-    updateProgress(0);
-
-    /////////////////////////////////////////////////////////////////////////////////////////
-    const projects = [
-        {
-            title: "Postnet",
-            desc: "App Design",
-            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
-            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
-            popupImageAlt: "PostNet Logo",
-        },
-        {
-            title: "Hypro",
-            desc: "Branding",
-            colors: ["#0D0D0D", "#3A3A3A", "#5A5A5A", "#AAAAAA"],
-            popupImageSrc: "/src/media/projects/hypro/hyproLogo.svg",
-            popupImageAlt: "Hypro Logo",
-        },
-        {
-            title: "Doodle Dev",
-            desc: "Web App",
-            colors: ["#A1BFFF", "#8FA9F8", "#5D7FF7", "#204DE8"],
-            popupImageSrc: "/src/media/projects/doodleDev/doodleDevLogo.svg",
-            popupImageAlt: "Doodle Dev Logo",
-        },
-        {
-            title: "Villa 39",
-            desc: "Website",
-            colors: ["#EEEEEE", "#CCCCCC", "#AAAAAA", "#888888"],
-            popupImageSrc: "/src/media/projects/villa39/villa39Logo.svg",
-            popupImageAlt: "Villa 39 Logo",
-        },
-        {
-            title: "Postnet",
-            desc: "App Design",
-            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
-            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
-            popupImageAlt: "PostNet Logo",
-        },
-    ];
-
-    const paletteDots = document.querySelectorAll(".project-sidebar .color");
-    const projectTitle = document.querySelector(".project-title");
-    const projectDesc = document.querySelector(".project-desc");
-    const popupOverlay = document.querySelector(".popup-overlay");
-    const popupImage = document.querySelector(".popup-image");
-    const popupTitle = document.querySelector(".popup-title");
-    const popupDesc = document.querySelector(".popup-desc");
-    const popupClose = document.querySelector(".popup-close");
 
     // Update sidebar colors and text based on current index
     function updateSidebar(index) {
@@ -273,63 +290,30 @@ document.addEventListener("DOMContentLoaded", () => {
         popupTitle.textContent = project.title;
         popupDesc.textContent = project.desc;
         popupOverlay.classList.remove("hidden");
+        disableBodyScroll();
     }
 
     // Close popup
-    popupClose.addEventListener("click", () => {
+    function closePopup() {
         popupOverlay.classList.add("hidden");
-    });
+        enableBodyScroll();
+    }
+    popupClose.addEventListener("click", closePopup);
     popupOverlay.addEventListener("click", (e) => {
         if (e.target === popupOverlay) {
-            popupOverlay.classList.add("hidden");
+            closePopup();
         }
     });
 
-    // Update sidebar on slide change
-    function animateTo(index) {
-        isAnimating = true;
-        const blockHeight = getBlockHeight();
-        const targetY = -blockHeight * index;
-        const startY = currentTranslateY;
-        const duration = 400;
-        const startTime = performance.now();
-        const oldIndex = currentIndex;
-
-        // Start fade and movement together
-        setActiveSlide(index, oldIndex);
-
-        function animate(time) {
-            const elapsed = time - startTime;
-            const t = Math.min(elapsed / duration, 1);
-            const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-            const currentY = startY + (targetY - startY) * ease;
-            slider.style.transform = `translateY(${currentY}px)`;
-
-            if (t < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                slider.style.transform = `translateY(${targetY}px)`;
-                currentTranslateY = targetY;
-                currentIndex = index;
-                isAnimating = false;
-
-                if (queuedIndex !== null && queuedIndex !== currentIndex) {
-                    const nextIndex = queuedIndex;
-                    queuedIndex = null;
-                    goTo(nextIndex);
-                }
-            }
-        }
-
-        requestAnimationFrame(animate);
-        updateProgress(index);
-        updateSidebar(index); // update sidebar here
-    }
-
+    // Slide click opens popup
     slides.forEach((slide, index) => {
         slide.style.cursor = "pointer";
         slide.addEventListener("click", () => {
             showPopup(index);
         });
     });
+
+    // Initialize
+    goTo(0);
+    updateProgress(0);
 });
