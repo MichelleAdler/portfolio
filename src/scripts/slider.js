@@ -206,4 +206,130 @@ document.addEventListener("DOMContentLoaded", () => {
     // Init
     goTo(0);
     updateProgress(0);
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    const projects = [
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
+            popupImageAlt: "PostNet Logo",
+        },
+        {
+            title: "Hypro",
+            desc: "Branding",
+            colors: ["#0D0D0D", "#3A3A3A", "#5A5A5A", "#AAAAAA"],
+            popupImageSrc: "/src/media/projects/hypro/hyproLogo.svg",
+            popupImageAlt: "Hypro Logo",
+        },
+        {
+            title: "Doodle Dev",
+            desc: "Web App",
+            colors: ["#A1BFFF", "#8FA9F8", "#5D7FF7", "#204DE8"],
+            popupImageSrc: "/src/media/projects/doodleDev/doodleDevLogo.svg",
+            popupImageAlt: "Doodle Dev Logo",
+        },
+        {
+            title: "Villa 39",
+            desc: "Website",
+            colors: ["#EEEEEE", "#CCCCCC", "#AAAAAA", "#888888"],
+            popupImageSrc: "/src/media/projects/villa39/villa39Logo.svg",
+            popupImageAlt: "Villa 39 Logo",
+        },
+        {
+            title: "Postnet",
+            desc: "App Design",
+            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
+            popupImageSrc: "/src/media/projects/postnet/postnetLogo.svg",
+            popupImageAlt: "PostNet Logo",
+        },
+    ];
+
+    const paletteDots = document.querySelectorAll(".project-sidebar .color");
+    const projectTitle = document.querySelector(".project-title");
+    const projectDesc = document.querySelector(".project-desc");
+    const popupOverlay = document.querySelector(".popup-overlay");
+    const popupImage = document.querySelector(".popup-image");
+    const popupTitle = document.querySelector(".popup-title");
+    const popupDesc = document.querySelector(".popup-desc");
+    const popupClose = document.querySelector(".popup-close");
+
+    // Update sidebar colors and text based on current index
+    function updateSidebar(index) {
+        const project = projects[index];
+        paletteDots.forEach((dot, i) => {
+            dot.style.backgroundColor = project.colors[i] || "#ddd";
+        });
+        projectTitle.textContent = project.title;
+        projectDesc.textContent = project.desc;
+    }
+
+    // Show popup with data from a slide index
+    function showPopup(index) {
+        const project = projects[index];
+        popupImage.src = project.popupImageSrc;
+        popupImage.alt = project.popupImageAlt;
+        popupTitle.textContent = project.title;
+        popupDesc.textContent = project.desc;
+        popupOverlay.classList.remove("hidden");
+    }
+
+    // Close popup
+    popupClose.addEventListener("click", () => {
+        popupOverlay.classList.add("hidden");
+    });
+    popupOverlay.addEventListener("click", (e) => {
+        if (e.target === popupOverlay) {
+            popupOverlay.classList.add("hidden");
+        }
+    });
+
+    // Update sidebar on slide change
+    function animateTo(index) {
+        isAnimating = true;
+        const blockHeight = getBlockHeight();
+        const targetY = -blockHeight * index;
+        const startY = currentTranslateY;
+        const duration = 400;
+        const startTime = performance.now();
+        const oldIndex = currentIndex;
+
+        // Start fade and movement together
+        setActiveSlide(index, oldIndex);
+
+        function animate(time) {
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            const currentY = startY + (targetY - startY) * ease;
+            slider.style.transform = `translateY(${currentY}px)`;
+
+            if (t < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                slider.style.transform = `translateY(${targetY}px)`;
+                currentTranslateY = targetY;
+                currentIndex = index;
+                isAnimating = false;
+
+                if (queuedIndex !== null && queuedIndex !== currentIndex) {
+                    const nextIndex = queuedIndex;
+                    queuedIndex = null;
+                    goTo(nextIndex);
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+        updateProgress(index);
+        updateSidebar(index); // update sidebar here
+    }
+
+    slides.forEach((slide, index) => {
+        slide.style.cursor = "pointer";
+        slide.addEventListener("click", () => {
+            showPopup(index);
+        });
+    });
 });
