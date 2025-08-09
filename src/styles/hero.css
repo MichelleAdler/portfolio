@@ -96,7 +96,7 @@
 
 .project-content {
     height: 100%;
-    padding: 6vh 6vw;
+    padding: 0vh 6vw;
     display: flex;
     justify-content: center;
     align-content: flex-end;
