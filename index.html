@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="src/styles/main.css">
 		<link rel="stylesheet" href="src/styles/hero.css">
 		<link rel="stylesheet" href="src/styles/popups.css">
+		<link rel="stylesheet" href="src/styles/navigation.css">
 		<script src="src/scripts/navigation.js" defer></script>
 		<script src="src/scripts/slider.js" defer></script>
 	</head>
@@ -22,13 +23,22 @@
 					<h1>Michellé Adler</h1>
 					<p>UX / UI | Web | Graphic Design</p>
 				</div>
-				<div class="tab-container" id="navTabs">
-					<input id="tab1" class="nav-tab" type="radio" name="tab" checked />
-					<input id="tab2" class="nav-tab" type="radio" name="tab" />
-
-					<label for="tab1" class="tab_label">Projects</label>
-					<label for="tab2" class="tab_label">About</label>
-				</div>
+				<nav class="navbar">
+					<ul class="navbar__menu">
+						<li class="navbar__item">
+							<input type="radio" name="nav" id="tab-1" checked />
+							<label for="tab-1" class="navbar__link">
+								<span>Home</span>
+							</label>
+						</li>
+						<li class="navbar__item">
+							<input type="radio" name="nav" id="tab-2" />
+							<label for="tab-2" class="navbar__link">
+								<span>Messages</span>
+							</label>
+						</li>
+					</ul>
+				</nav>
 			</header>
 
 			<div class="page-content">

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const aboutRadio = document.getElementById("tab2");
-    const projectsRadio = document.getElementById("tab1");
+    const aboutRadio = document.getElementById("tab-2");
+    const projectsRadio = document.getElementById("tab-1");
     const heroView = document.getElementById("heroView");
     const aboutView = document.getElementById("aboutView");
 
@@ -27,16 +27,44 @@ document.addEventListener("DOMContentLoaded", () => {
         if (projectsRadio.checked) showProjects();
     });
 
-    const tabContainer = document.querySelector(".tab-container");
-    const navTabs = tabContainer.querySelectorAll(".nav-tab");
-    navTabs.forEach((tab) => {
-        tab.addEventListener("change", () => {
-            tabContainer.classList.add("moving");
-            setTimeout(() => {
-                tabContainer.classList.remove("moving");
-            }, 500); // match animation duration
+    showProjects();
+
+    const menu = document.querySelector(".navbar__menu");
+    const radios = document.querySelectorAll(
+        '.navbar__item input[type="radio"]'
+    );
+
+    // Create gooey highlight div once
+    const gooey = document.createElement("div");
+    gooey.classList.add("gooey-highlight");
+    menu.style.position = "relative";
+    menu.appendChild(gooey);
+
+    function updateGooeyPosition() {
+        let selectedIndex = -1;
+        radios.forEach((radio, i) => {
+            if (radio.checked) selectedIndex = i;
         });
+
+        if (selectedIndex === -1) {
+            gooey.style.opacity = "0";
+            return;
+        }
+
+        gooey.style.opacity = "1";
+        gooey.style.left = `${selectedIndex * 12}rem`;
+
+        // Restart the stretch animation:
+        gooey.style.animation = "none";
+        // Trigger reflow to reset animation
+        void gooey.offsetWidth;
+        gooey.style.animation = "gooeyStretch 300ms ease forwards";
+    }
+
+    radios.forEach((radio) => {
+        radio.addEventListener("change", updateGooeyPosition);
     });
 
-    showProjects();
+    // Run once on load to position highlight on first item
+    updateGooeyPosition();
 });
