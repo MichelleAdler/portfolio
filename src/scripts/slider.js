@@ -15,44 +15,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Popup elements
     const popupOverlay = document.querySelector(".popup-overlay");
-    const popupContent = document.querySelector(".popup-content"); // NEW: container for loaded HTML
+    const popupContent = document.querySelector(".popup-content");
     const popupClose = document.querySelector(".popup-close");
 
-    // Map slide index to popup HTML file relative to your project root
-    // Make sure paths match your folder structure
     const popupFiles = [
         "/src/pages/postnet.html",
-        "/src/pages/hypro.html",
         "/src/pages/doodleDev.html",
+        "/src/pages/hypro.html",
         "/src/pages/villa39.html",
-        "/src/pages/postnet.html", // repeated as in projects array
+        "/src/pages/postnet.html",
     ];
 
-    // The rest of your projects data is still useful for sidebar colors and text
     const projects = [
         {
             title: "Postnet",
-            desc: "App Design",
+            desc:
+                "Stationary and courier company" +
+                "<br><br>" +
+                "| Mobile app design",
             colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
         },
         {
-            title: "Hypro",
-            desc: "Branding",
-            colors: ["#0D0D0D", "#3A3A3A", "#5A5A5A", "#AAAAAA"],
+            title: "Doodle Dev",
+            desc:
+                "Software development company" +
+                "<br><br>" +
+                "| Branding and website",
+            colors: ["#DDF344", "#A1BFFF", "#3B4883", "#D9D9D9"],
         },
         {
-            title: "Doodle Dev",
-            desc: "Web App",
-            colors: ["#A1BFFF", "#8FA9F8", "#5D7FF7", "#204DE8"],
+            title: "Hypro Hydraulics",
+            desc:
+                "Hydraulics components and services company" +
+                "<br><br>" +
+                "| Branding and website",
+            colors: ["#ACC5DA", "#49637A", "#2E475C", "#172A3A"],
         },
         {
             title: "Villa 39",
-            desc: "Website",
-            colors: ["#EEEEEE", "#CCCCCC", "#AAAAAA", "#888888"],
+            desc:
+                "In-house goldsmith and jeweler" +
+                "<br><br>" +
+                "| Branding and website",
+            colors: ["#4E4327", "#4C5547", "#7C8378", "#181918"],
         },
         {
             title: "Postnet",
-            desc: "App Design",
+            desc: "App concept and design",
             colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
         },
     ];
@@ -261,8 +270,8 @@ document.addEventListener("DOMContentLoaded", () => {
         paletteDots.forEach((dot, i) => {
             dot.style.backgroundColor = project.colors[i] || "#ddd";
         });
-        projectTitle.textContent = project.title;
-        projectDesc.textContent = project.desc;
+        projectTitle.innerHTML = project.title;
+        projectDesc.innerHTML = project.desc;
     }
 
     // NEW: Load popup content from external HTML file

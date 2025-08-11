@@ -1,0 +1,79 @@
+.navbar {
+    border-radius: 10px;
+    padding: 0 1rem;
+    height: 5.5rem;
+}
+
+.navbar__menu {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar__item {
+    position: relative;
+}
+
+.navbar__item input[type="radio"] {
+    display: none;
+}
+
+.navbar__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    height: 3rem;
+    cursor: pointer;
+    user-select: none;
+    transition: 250ms ease all;
+    z-index: 1;
+}
+
+.navbar__link span {
+    pointer-events: none;
+    color: #013255;
+    padding: 16px;
+    font-size: 24px;
+    border-radius: 30px;
+    white-space: nowrap;
+    transition: 250ms ease all;
+}
+
+/* Gooey highlight */
+.gooey-highlight {
+    position: absolute;
+    top: 1.3px;
+    width: 12rem;
+    height: 3rem;
+    background: #013255;
+    border-radius: 30px;
+    transition: left 250ms cubic-bezier(1, 0.2, 0.1, 1.2);
+    z-index: 0;
+    opacity: 0;
+    transform-origin: center;
+}
+
+@keyframes gooeyStretch {
+    0% {
+        transform: scaleX(1) scaleY(1);
+    }
+
+    50% {
+        transform: scaleX(1.4) scaleY(0.85);
+    }
+
+    100% {
+        transform: scaleX(1) scaleY(1);
+    }
+}
+
+#tab-1:checked~label[for="tab-1"] span,
+#tab-2:checked~label[for="tab-2"] span {
+    color: white;
+}
