@@ -40,7 +40,7 @@
     color: #013255;
     padding: 16px;
     font-size: 24px;
-    border-radius: 17.5px;
+    border-radius: 30px;
     white-space: nowrap;
     transition: 250ms ease all;
 }
@@ -52,7 +52,7 @@
     width: 12rem;
     height: 3rem;
     background: #013255;
-    border-radius: 17.5px;
+    border-radius: 30px;
     transition: left 250ms cubic-bezier(1, 0.2, 0.1, 1.2);
     z-index: 0;
     opacity: 0;
