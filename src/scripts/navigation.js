@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     const aboutRadio = document.getElementById("tab2");
     const projectsRadio = document.getElementById("tab1");
     const heroView = document.getElementById("heroView");
@@ -20,15 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
         aboutView.classList.remove("active");
     }
 
-    // Listen for radio state changes instead of clicks
     aboutRadio.addEventListener("change", () => {
         if (aboutRadio.checked) showAbout();
     });
-
     projectsRadio.addEventListener("change", () => {
         if (projectsRadio.checked) showProjects();
     });
 
-    // Initialize to projects view
+    const tabContainer = document.querySelector(".tab-container");
+    const navTabs = tabContainer.querySelectorAll(".nav-tab");
+    navTabs.forEach((tab) => {
+        tab.addEventListener("change", () => {
+            tabContainer.classList.add("moving");
+            setTimeout(() => {
+                tabContainer.classList.remove("moving");
+            }, 500); // match animation duration
+        });
+    });
+
     showProjects();
 });
