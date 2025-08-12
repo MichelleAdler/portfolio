@@ -16,14 +16,16 @@
 .popup-overlay.hidden {
     opacity: 0;
     pointer-events: none;
+    transform: opacity 0.3s ease;
 }
 
 .popup {
     width: 90vw;
-    height: 70vh;
+    height: 90vh;
     display: block;
     overflow-y: auto;
     overflow-x: hidden;
+    border-radius: 8px;
 }
 
 .popup-content {
@@ -45,8 +47,8 @@
 
 .popup-close {
     position: absolute;
-    top: 30vh;
-    right: 4vw;
+    top: 8vh;
+    right: 7vw;
     background: transparent;
     border: none;
     font-size: 2rem;
@@ -54,11 +56,6 @@
     color: black;
     /* or a color that suits your popup */
     z-index: 1001;
-}
-
-.popup-close:hover {
-    color: #f00;
-    /* Optional hover effect */
 }
 
 .popup-content {
@@ -80,4 +77,46 @@
     flex-direction: column;
     align-items: center;
     grid-column: 2;
+}
+
+.close-container {
+    margin: auto;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1.5vw;
+}
+
+.leftright {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    margin-top: 24px;
+    background-color: black;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all .3s ease-in;
+}
+
+.rightleft {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    margin-top: 24px;
+    background-color: black;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    transition: all .3s ease-in;
+}
+
+.close-container:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: #f00;
+}
+
+.close-container:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: #f00;
 }
