@@ -121,9 +121,31 @@
     background-color: #f00;
 }
 
+.popup-scroll-bar-container {
+    grid-column: 1;
+    align-items: flex-end;
+    position: absolute;
+    max-width: 3vw;
+    width: 3vw;
+    justify-content: center;
+}
+
 .popup-scrollbar {
-    position: relative;
-    width: 5px;
     height: 100%;
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popup-scrollbar::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background: var(--primary-color);
+    pointer-events: none;
+    display: flex;
+    position: absolute;
+    bottom: 2px;
+    box-shadow: -8px 8px 20px rgba(0, 0, 0, 5);
 }
