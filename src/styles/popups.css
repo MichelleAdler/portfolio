@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.23);
+    background: rgba(0, 0, 0, 0.30);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,10 +22,11 @@
 .popup {
     width: 90vw;
     height: 90vh;
-    display: block;
+    display: flex;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 8px;
+    background: white;
 }
 
 .popup-content {
@@ -37,12 +38,15 @@
     text-align: center;
     position: relative;
     overflow-x: hidden;
+    gap: 12px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: 10px;
 }
 
 .popup-content img {
     max-width: 100%;
     height: auto;
-    margin-bottom: 1rem;
 }
 
 .popup-close {
@@ -56,12 +60,6 @@
     color: black;
     /* or a color that suits your popup */
     z-index: 1001;
-}
-
-.popup-content {
-    display: grid;
-    grid-template-columns: 60% 40%;
-    gap: 1rem;
 }
 
 .popup-content .left-container {
@@ -113,39 +111,38 @@
 
 .close-container:hover .leftright {
     transform: rotate(-45deg);
-    background-color: #f00;
+    background-color: var(--secondary-color);
 }
 
 .close-container:hover .rightleft {
     transform: rotate(45deg);
-    background-color: #f00;
+    background-color: var(--secondary-color);
 }
 
-.popup-scroll-bar-container {
-    grid-column: 1;
-    align-items: flex-end;
-    position: absolute;
-    max-width: 3vw;
-    width: 3vw;
-    justify-content: center;
+/* Styling the entire scrollbar */
+.popup-content::-webkit-scrollbar {
+    width: 10px;
 }
 
-.popup-scrollbar {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+/* Styling the scrollbar track */
+.popup-content::-webkit-scrollbar-track {
+    background: transparent;
+    /* Light gray track */
 }
 
-.popup-scrollbar::before {
-    content: "";
-    width: 2px;
-    height: 100%;
-    background: var(--primary-color);
-    pointer-events: none;
-    display: flex;
-    position: absolute;
-    bottom: 2px;
-    box-shadow: -8px 8px 20px rgba(0, 0, 0, 5);
+/* Styling the scrollbar thumb (draggable handle) */
+.popup-content::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: var(--secondary-color);
+}
+
+/* Styling the scrollbar thumb on hover */
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background: #b82d2d;
+    cursor: pointer;
+}
+
+/* Hiding scrollbar buttons (arrows) */
+::-webkit-scrollbar-button {
+    display: none;
 }
