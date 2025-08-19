@@ -146,3 +146,61 @@
 ::-webkit-scrollbar-button {
     display: none;
 }
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: fit-content;
+}
+
+.toggle-option {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.toggle-option svg {
+    width: 22px;
+    height: 22px;
+    fill: #bbb;
+    transition: fill 0.3s ease;
+}
+
+.toggle-option.active svg {
+    fill: #4f46e5;
+}
+
+.indicator {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #e0e7ff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 1;
+}
+
+img.hide {
+    display: none;
+    transition: all 0.4s ease;
+}
+
+img.show {
+    display: block;
+    transition: all 0.4s ease;
+}

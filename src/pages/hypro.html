@@ -1,6 +1,72 @@
 <div class="left-container">
-    <img src="/src/media/projects/hypro/hyproWebsite.png" alt="Website design preview" style="height:auto;">
-</div>
-<div class="right-container">
+    <!-- Toggle -->
+    <div class="toggle-container" style="margin-bottom: 1rem;">
+        <div class="indicator" id="indicator"></div>
+        <div class="toggle-option active" data-device="pc">
+            <!-- PC icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M4 5h16v11H4z" />
+                <path d="M2 18h20v2H2z" />
+            </svg>
+        </div>
+        <div class="toggle-option" data-device="phone">
+            <!-- Phone icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                    d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm5 18a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4z" />
+            </svg>
+        </div>
+    </div>
 
+    <!-- Images -->
+    <img id="pcImage" class="show" src="/src/media/projects/hypro/hyproWebsite.png" alt="Website Preview"
+        style="width:100%; border-radius:8px;">
+    <img id="phoneImage" class="hide" src="/src/media/projects/hypro/hyproWebsiteMobile.png" alt="Phone Preview"
+        style="width:50%; border-radius:8px;">
 </div>
+
+<div class="right-container">
+    <!-- Other content can go here -->
+</div>
+
+<script>
+    console.info("Hypro project loaded");
+    const options = document.querySelectorAll('.toggle-option');
+    const indicator = document.getElementById('indicator');
+    const pcImage = document.getElementById('pcImage');
+    const phoneImage = document.getElementById('phoneImage');
+
+    function setActive(device) {
+        options.forEach(opt => opt.classList.remove('active'));
+        const selected = document.querySelector(`.toggle-option[data-device="${device}"]`);
+        selected.classList.add('active');
+
+        // Move indicator
+        indicator.style.left = selected.offsetLeft + "px";
+
+        // Swap images
+        if (device === "pc") {
+            pcImage.classList.remove("hide");
+            pcImage.classList.add("show");
+            phoneImage.classList.remove("show");
+            phoneImage.classList.add("hide");
+        } else {
+            phoneImage.classList.remove("hide");
+            phoneImage.classList.add("show");
+            pcImage.classList.remove("show");
+            pcImage.classList.add("hide");
+        }
+    }
+
+    // init position
+    window.addEventListener("load", () => {
+        const active = document.querySelector(".toggle-option.active");
+        indicator.style.left = active.offsetLeft + "px";
+    });
+
+    options.forEach(opt => {
+        opt.addEventListener("click", () => {
+            setActive(opt.dataset.device);
+        });
+    });
+</script>
