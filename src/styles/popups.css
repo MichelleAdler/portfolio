@@ -121,7 +121,7 @@
 
 /* Styling the entire scrollbar */
 .popup-content::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 /* Styling the scrollbar track */
@@ -211,12 +211,13 @@ img.show {
     display: flex;
     justify-content: center;
     color: var(--navy-color);
+    padding-top: 1.3rem;
 }
 
 .right-container h2 {
     font-size: 1.5rem;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 1 rem;
+    margin-bottom: 1 rem;
 }
 
 .right-container .project-description {
@@ -262,4 +263,12 @@ img.show {
     font-size: 1rem;
     line-height: 1.5;
     text-align: left;
+}
+
+i:hover {
+    color: var(--secondary-color);
+}
+
+.toggle-option.active i {
+    color: var(--secondary-color);
 }
