@@ -40,7 +40,7 @@
     overflow-x: hidden;
     gap: 12px;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 50% 50%;
     margin: 10px;
 }
 
@@ -65,16 +65,16 @@
 .popup-content .left-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     grid-column: 1;
-    max-width: 60vw;
 }
 
 .popup-content .right-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     grid-column: 2;
+    padding: 0% 10%;
 }
 
 .close-container {
@@ -203,4 +203,63 @@ img.hide {
 img.show {
     display: block;
     transition: all 0.4s ease;
+}
+
+.right-container h1 {
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--navy-color);
+}
+
+.right-container h2 {
+    font-size: 1.5rem;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.right-container .project-description {
+    display: grid;
+    gap: 4px;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+.right-container .project-description .left {
+    width: 100%;
+    grid-column: 1;
+    font-size: 3px;
+}
+
+.right-container .project-description .right {
+    width: 100%;
+    grid-column: 3;
+    font-size: 3px;
+}
+
+.right-container .project-description h2 {
+    width: fit-content;
+    grid-column: 2;
+}
+
+.right-container h3 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.right-container ul {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.right-container p {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
 }

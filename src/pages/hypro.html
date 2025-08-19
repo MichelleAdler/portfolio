@@ -3,18 +3,10 @@
     <div class="toggle-container" style="margin-bottom: 1rem;">
         <div class="indicator" id="indicator"></div>
         <div class="toggle-option active" data-device="pc">
-            <!-- PC icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M4 5h16v11H4z" />
-                <path d="M2 18h20v2H2z" />
-            </svg>
+            <span>PC</span>
         </div>
         <div class="toggle-option" data-device="phone">
-            <!-- Phone icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                    d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm5 18a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4z" />
-            </svg>
+            <span>Phone</span>
         </div>
     </div>
 
@@ -26,47 +18,48 @@
 </div>
 
 <div class="right-container">
-    <!-- Other content can go here -->
+    <h1>Hypro Hydraulics</h1>
+
+    <span class="project-description">
+        <span class="left">
+            <hr>
+        </span>
+        <h2>Website, Branding and Logo Design</h2>
+        <span class="right">
+            <hr>
+        </span>
+    </span>
+
+    <p>
+        Hypro Hydraulics is a South African company that provides hydraulic and industrial solutions.
+        I designed their new logo and website to strengthen their online presence and give them a modern,
+        professional
+        brand identity.
+    </p>
+
+    <h3>Logo</h3>
+    <ul>
+        <li>Designed a logo that feels reliable and precise while remaining simple enough for versatile use.</li>
+        <li>The final design has an industrial edge but stays clean and adaptable.</li>
+        <li>Gives the brand a sharp, trustworthy look that works across different formats.</li>
+    </ul>
+
+    <h3>Website</h3>
+    <ul>
+        <li>Showcases Hypro’s core services: hydraulic systems, components, repairs, pneumatics, and safety equipment.
+        </li>
+        <li>Built with a straightforward layout and easy navigation so visitors quickly find what they need.</li>
+        <li>Includes a clear step-by-step process (consultation through to delivery and support) to build customer
+            confidence.</li>
+        <li>Contact information is always accessible, with multiple options including WhatsApp for quick help.</li>
+    </ul>
+
+    <h3>Outcome</h3>
+    <ul>
+        <li>The new logo and website create a consistent identity that feels professional and approachable.</li>
+        <li>Design speaks directly to industries like construction, mining, transport, and agriculture.</li>
+        <li>Delivers a simple, user-friendly experience while strengthening Hypro’s brand presence.</li>
+    </ul>
+
+
 </div>
-
-<script>
-    console.info("Hypro project loaded");
-    const options = document.querySelectorAll('.toggle-option');
-    const indicator = document.getElementById('indicator');
-    const pcImage = document.getElementById('pcImage');
-    const phoneImage = document.getElementById('phoneImage');
-
-    function setActive(device) {
-        options.forEach(opt => opt.classList.remove('active'));
-        const selected = document.querySelector(`.toggle-option[data-device="${device}"]`);
-        selected.classList.add('active');
-
-        // Move indicator
-        indicator.style.left = selected.offsetLeft + "px";
-
-        // Swap images
-        if (device === "pc") {
-            pcImage.classList.remove("hide");
-            pcImage.classList.add("show");
-            phoneImage.classList.remove("show");
-            phoneImage.classList.add("hide");
-        } else {
-            phoneImage.classList.remove("hide");
-            phoneImage.classList.add("show");
-            pcImage.classList.remove("show");
-            pcImage.classList.add("hide");
-        }
-    }
-
-    // init position
-    window.addEventListener("load", () => {
-        const active = document.querySelector(".toggle-option.active");
-        indicator.style.left = active.offsetLeft + "px";
-    });
-
-    options.forEach(opt => {
-        opt.addEventListener("click", () => {
-            setActive(opt.dataset.device);
-        });
-    });
-</script>

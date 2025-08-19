@@ -293,6 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 popupContent.innerHTML = html;
                 popupOverlay.classList.remove("hidden");
                 disableBodyScroll();
+
+                toggleDeviceSetup();
             })
             .catch((err) => {
                 popupContent.innerHTML = `<p>Error loading content: ${err.message}</p>`;
@@ -324,4 +326,45 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize
     goTo(0);
     updateProgress(0);
+
+    function toggleDeviceSetup() {
+        console.info("Hypro project loaded");
+        const options = document.querySelectorAll(".toggle-option");
+        const indicator = document.getElementById("indicator");
+        const pcImage = document.getElementById("pcImage");
+        const phoneImage = document.getElementById("phoneImage");
+
+        function setActive(device) {
+            options.forEach((opt) => opt.classList.remove("active"));
+            const selected = document.querySelector(
+                `.toggle-option[data-device="${device}"]`
+            );
+            selected.classList.add("active");
+
+            // Move indicator
+            indicator.style.left = selected.offsetLeft + "px";
+
+            // Swap images
+            if (device === "pc") {
+                pcImage.classList.remove("hide");
+                pcImage.classList.add("show");
+                phoneImage.classList.remove("show");
+                phoneImage.classList.add("hide");
+            } else {
+                phoneImage.classList.remove("hide");
+                phoneImage.classList.add("show");
+                pcImage.classList.remove("show");
+                pcImage.classList.add("hide");
+            }
+        }
+
+        const active = document.querySelector(".toggle-option.active");
+        indicator.style.left = active.offsetLeft + "px";
+
+        options.forEach((opt) => {
+            opt.addEventListener("click", () => {
+                setActive(opt.dataset.device);
+            });
+        });
+    }
 });
