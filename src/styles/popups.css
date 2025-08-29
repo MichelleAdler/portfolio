@@ -38,9 +38,10 @@
     text-align: center;
     position: relative;
     overflow-x: hidden;
+    overflow: hidden;
     gap: 12px;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 55% 45%;
     margin: 10px;
 }
 
@@ -51,8 +52,8 @@
 
 .popup-close {
     position: absolute;
-    top: 8vh;
-    right: 7vw;
+    top: 6vh;
+    right: 6vw;
     background: transparent;
     border: none;
     font-size: 2rem;
@@ -62,19 +63,23 @@
     z-index: 1001;
 }
 
-.popup-content .left-container {
+.popup-content .content-container {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+}
+
+.popup-content .left-container {
     align-items: center;
     grid-column: 1;
+    padding: 0 8%;
 }
 
 .popup-content .right-container {
-    display: flex;
-    flex-direction: column;
     align-items: flex-start;
     grid-column: 2;
-    padding: 0% 10%;
+    padding: 0 10%;
+    margin-top: 3vh;
 }
 
 .close-container {
@@ -119,32 +124,16 @@
     background-color: var(--secondary-color);
 }
 
-/* Styling the entire scrollbar */
-.popup-content::-webkit-scrollbar {
-    width: 5px;
+/* Base state: hide the scrollbar completely */
+.popup-content .content-container {
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-/* Styling the scrollbar track */
-.popup-content::-webkit-scrollbar-track {
-    background: transparent;
-    /* Light gray track */
-}
-
-/* Styling the scrollbar thumb (draggable handle) */
-.popup-content::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    background: var(--secondary-color);
-}
-
-/* Styling the scrollbar thumb on hover */
-.popup-content::-webkit-scrollbar-thumb:hover {
-    background: #b82d2d;
-    cursor: pointer;
-}
-
-/* Hiding scrollbar buttons (arrows) */
-::-webkit-scrollbar-button {
-    display: none;
+/* Base state: hide the scrollbar completely */
+.popup-content .content-container {
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .toggle-container {
@@ -153,10 +142,11 @@
     gap: 1rem;
     background: #fff;
     padding: 0.5rem;
-    border-radius: 50px;
+    border-radius: 60px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
     width: fit-content;
+    position: fixed;
+    bottom: 2rem;
 }
 
 .toggle-option {

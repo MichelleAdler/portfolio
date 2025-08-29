@@ -334,6 +334,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const pcImage = document.getElementById("pcImage");
         const phoneImage = document.getElementById("phoneImage");
 
+        const popup = document.querySelector(".popup-content");
+        const left = document.querySelector(".left-container");
+        const right = document.querySelector(".right-container");
+
+        console.log(
+            "Scroll height:",
+            popup.scrollHeight,
+            "Client height:",
+            popup.clientHeight
+        );
+
+        if (!popup || !left || !right) return;
+
+        popup.addEventListener("scroll", function () {
+            const scrollTop = popup.scrollTop;
+
+            const leftMax = left.scrollHeight - left.clientHeight;
+            const rightMax = right.scrollHeight - right.clientHeight;
+
+            left.scrollTop = Math.min(scrollTop, leftMax);
+            right.scrollTop = Math.min(scrollTop, rightMax);
+        });
+
         function setActive(device) {
             options.forEach((opt) => opt.classList.remove("active"));
             const selected = document.querySelector(
