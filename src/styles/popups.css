@@ -1,4 +1,3 @@
-/*==================== Popup Overlay ====================*/
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -20,20 +19,15 @@
     transform: opacity 0.3s ease;
 }
 
-/*==================== Popup Container ====================*/
 .popup {
     width: 90vw;
     height: 90vh;
     display: flex;
     overflow-y: auto;
-    overflow-x: hidden;
     border-radius: 8px;
     background: white;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
 }
 
-/*==================== Popup Content ====================*/
 .popup-content {
     background: white;
     padding: 2rem;
@@ -46,6 +40,7 @@
     gap: 16px;
     margin: 10px;
     overflow: visible;
+    /* Remove scroll from popup-content */
 }
 
 .popup-content img {
@@ -53,7 +48,6 @@
     height: auto;
 }
 
-/*==================== Close Button ====================*/
 .popup-close {
     position: absolute;
     top: 6vh;
@@ -63,29 +57,19 @@
     font-size: 2rem;
     cursor: pointer;
     color: black;
+    /* or a color that suits your popup */
     z-index: 1001;
 }
 
-/*==================== Content Scrollable Container ====================*/
 .popup-content .content-container {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     overflow-x: hidden;
-    flex: 1;
-    max-height: 100%;
+    overflow-y: scroll;
+    height: fit-content;
     padding-bottom: 12px;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    /* Firefox */
 }
 
-.popup-content .content-container::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Edge */
-}
-
-/*==================== Grid Layout ====================*/
 .popup-content .left-container {
     align-items: center;
     grid-column: 1;
@@ -97,7 +81,6 @@
     margin-top: 3vh;
 }
 
-/*==================== Close Icon ====================*/
 .close-container {
     margin: auto;
     height: 40px;
@@ -108,7 +91,17 @@
     width: 1.5vw;
 }
 
-.leftright,
+.leftright {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    margin-top: 24px;
+    background-color: black;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all .3s ease-in;
+}
+
 .rightleft {
     height: 4px;
     width: 100%;
@@ -116,15 +109,8 @@
     margin-top: 24px;
     background-color: black;
     border-radius: 2px;
-    transition: all .3s ease-in;
-}
-
-.leftright {
-    transform: rotate(45deg);
-}
-
-.rightleft {
     transform: rotate(-45deg);
+    transition: all .3s ease-in;
 }
 
 .close-container:hover .leftright {
@@ -137,7 +123,12 @@
     background-color: var(--secondary-color);
 }
 
-/*==================== Toggle Buttons ====================*/
+/* Base state: hide the scrollbar completely */
+.popup-content .content-container {
+    scrollbar-width: none;
+    /* Firefox */
+}
+
 .toggle-container {
     display: flex;
     align-items: center;
@@ -187,7 +178,6 @@
     z-index: 1;
 }
 
-/*==================== Image Animations ====================*/
 img.hide {
     display: none;
     transition: all 0.4s ease;
@@ -198,7 +188,6 @@ img.show {
     transition: all 0.4s ease;
 }
 
-/*==================== Text Styling ====================*/
 .right-container h1 {
     font-size: 2rem;
     width: 100%;
@@ -210,8 +199,8 @@ img.show {
 
 .right-container h2 {
     font-size: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1 rem;
+    margin-bottom: 1 rem;
 }
 
 .right-container .project-description {
