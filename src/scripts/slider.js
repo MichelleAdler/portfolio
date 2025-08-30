@@ -340,26 +340,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function updateStuck(el) {
             const popupHeight = popup.clientHeight;
-            const elBottom = el.offsetTop + el.offsetHeight; // bottom relative to popup
+            const elBottom = el.offsetTop + el.offsetHeight;
 
-            // If scroll position + popup height reaches the element's bottom, add class
             if (popup.scrollTop + popupHeight >= elBottom) {
+                // Add stuck class
                 el.classList.add("stuck");
+                // Freeze scroll visually at bottom
+                el.scrollTop = el.scrollHeight - el.clientHeight;
             } else {
                 el.classList.remove("stuck");
             }
         }
 
         popup.addEventListener("scroll", function () {
-            // Sync scroll for each element (optional)
-            left.scrollTop = Math.min(
-                popup.scrollTop,
-                left.scrollHeight - left.clientHeight
-            );
-            right.scrollTop = Math.min(
-                popup.scrollTop,
-                right.scrollHeight - right.clientHeight
-            );
+            // Sync scroll for left/right containers, but only if not stuck
+            if (!left.classList.contains("stuck")) {
+                left.scrollTop = Math.min(
+                    popup.scrollTop,
+                    left.scrollHeight - left.clientHeight
+                );
+            }
+            if (!right.classList.contains("stuck")) {
+                right.scrollTop = Math.min(
+                    popup.scrollTop,
+                    right.scrollHeight - right.clientHeight
+                );
+            }
 
             // Update stuck class
             updateStuck(left);
