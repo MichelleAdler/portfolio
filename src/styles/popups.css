@@ -260,3 +260,10 @@ i:hover {
 .right-container.stuck {
     box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
 }
+
+.image-grid {
+    display: grid;
+    width: 100%;
+    align-items: center;
+    grid-template-columns: auto auto;
+}
