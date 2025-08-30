@@ -338,19 +338,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const left = document.querySelector(".left-container");
         const right = document.querySelector(".right-container");
 
+        function updateStuck(el) {
+            const popupHeight = popup.clientHeight;
+            const elBottom = el.offsetTop + el.offsetHeight; // bottom relative to popup
+
+            // If scroll position + popup height reaches the element's bottom, add class
+            if (popup.scrollTop + popupHeight >= elBottom) {
+                el.classList.add("stuck");
+            } else {
+                el.classList.remove("stuck");
+            }
+        }
+
         popup.addEventListener("scroll", function () {
-            const scrollTop = popup.scrollTop;
-            const popupMax = popup.scrollHeight - popup.clientHeight;
+            // Sync scroll for each element (optional)
+            left.scrollTop = Math.min(
+                popup.scrollTop,
+                left.scrollHeight - left.clientHeight
+            );
+            right.scrollTop = Math.min(
+                popup.scrollTop,
+                right.scrollHeight - right.clientHeight
+            );
 
-            const leftMax = left.scrollHeight - left.clientHeight;
-            const rightMax = right.scrollHeight - right.clientHeight;
-
-            // Calculate proportional scroll values
-            const leftScroll = Math.min(scrollTop, leftMax);
-            const rightScroll = Math.min(scrollTop, rightMax);
-
-            left.scrollTop = leftScroll;
-            right.scrollTop = rightScroll;
+            // Update stuck class
+            updateStuck(left);
+            updateStuck(right);
         });
 
         function setActive(device) {
