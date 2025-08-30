@@ -1,3 +1,4 @@
+/*==================== Popup Overlay ====================*/
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -19,6 +20,7 @@
     transform: opacity 0.3s ease;
 }
 
+/*==================== Popup Container ====================*/
 .popup {
     width: 90vw;
     height: 90vh;
@@ -27,22 +29,23 @@
     overflow-x: hidden;
     border-radius: 8px;
     background: white;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
+/*==================== Popup Content ====================*/
 .popup-content {
     background: white;
     padding: 2rem;
     border-radius: 8px;
     width: 100%;
-    overflow-y: auto;
     text-align: center;
     position: relative;
-    overflow-x: hidden;
-    overflow: hidden;
-    gap: 12px;
     display: grid;
     grid-template-columns: 55% 45%;
+    gap: 16px;
     margin: 10px;
+    overflow: visible;
 }
 
 .popup-content img {
@@ -50,6 +53,7 @@
     height: auto;
 }
 
+/*==================== Close Button ====================*/
 .popup-close {
     position: absolute;
     top: 6vh;
@@ -59,29 +63,41 @@
     font-size: 2rem;
     cursor: pointer;
     color: black;
-    /* or a color that suits your popup */
     z-index: 1001;
 }
 
+/*==================== Content Scrollable Container ====================*/
 .popup-content .content-container {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    max-height: 100%;
+    padding-bottom: 12px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Firefox */
 }
 
+.popup-content .content-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Edge */
+}
+
+/*==================== Grid Layout ====================*/
 .popup-content .left-container {
     align-items: center;
     grid-column: 1;
-    padding: 0 8%;
 }
 
 .popup-content .right-container {
     align-items: flex-start;
     grid-column: 2;
-    padding: 0 10%;
     margin-top: 3vh;
 }
 
+/*==================== Close Icon ====================*/
 .close-container {
     margin: auto;
     height: 40px;
@@ -92,17 +108,7 @@
     width: 1.5vw;
 }
 
-.leftright {
-    height: 4px;
-    width: 100%;
-    position: absolute;
-    margin-top: 24px;
-    background-color: black;
-    border-radius: 2px;
-    transform: rotate(45deg);
-    transition: all .3s ease-in;
-}
-
+.leftright,
 .rightleft {
     height: 4px;
     width: 100%;
@@ -110,8 +116,15 @@
     margin-top: 24px;
     background-color: black;
     border-radius: 2px;
-    transform: rotate(-45deg);
     transition: all .3s ease-in;
+}
+
+.leftright {
+    transform: rotate(45deg);
+}
+
+.rightleft {
+    transform: rotate(-45deg);
 }
 
 .close-container:hover .leftright {
@@ -124,18 +137,7 @@
     background-color: var(--secondary-color);
 }
 
-/* Base state: hide the scrollbar completely */
-.popup-content .content-container {
-    scrollbar-width: none;
-    /* Firefox */
-}
-
-/* Base state: hide the scrollbar completely */
-.popup-content .content-container {
-    scrollbar-width: none;
-    /* Firefox */
-}
-
+/*==================== Toggle Buttons ====================*/
 .toggle-container {
     display: flex;
     align-items: center;
@@ -185,6 +187,7 @@
     z-index: 1;
 }
 
+/*==================== Image Animations ====================*/
 img.hide {
     display: none;
     transition: all 0.4s ease;
@@ -195,6 +198,7 @@ img.show {
     transition: all 0.4s ease;
 }
 
+/*==================== Text Styling ====================*/
 .right-container h1 {
     font-size: 2rem;
     width: 100%;
@@ -206,8 +210,8 @@ img.show {
 
 .right-container h2 {
     font-size: 1.5rem;
-    margin-top: 1 rem;
-    margin-bottom: 1 rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .right-container .project-description {

@@ -30,6 +30,8 @@ body {
     background-size: contain;
     color: #252627;
     overflow: hidden;
+    letter-spacing: -0.03em;
+    position: relative;
 }
 
 body {
@@ -151,4 +153,15 @@ footer {
 
 .tools-logos img:hover {
     filter: none;
+}
+
+.center-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.margin-top {
+    margin-top: 3rem;
 }

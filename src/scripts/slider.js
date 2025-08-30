@@ -334,27 +334,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const pcImage = document.getElementById("pcImage");
         const phoneImage = document.getElementById("phoneImage");
 
-        const popup = document.querySelector(".popup-content");
+        const popup = document.querySelector(".popup");
         const left = document.querySelector(".left-container");
         const right = document.querySelector(".right-container");
 
-        console.log(
-            "Scroll height:",
-            popup.scrollHeight,
-            "Client height:",
-            popup.clientHeight
-        );
-
-        if (!popup || !left || !right) return;
-
         popup.addEventListener("scroll", function () {
             const scrollTop = popup.scrollTop;
+            const popupMax = popup.scrollHeight - popup.clientHeight;
 
             const leftMax = left.scrollHeight - left.clientHeight;
             const rightMax = right.scrollHeight - right.clientHeight;
 
-            left.scrollTop = Math.min(scrollTop, leftMax);
-            right.scrollTop = Math.min(scrollTop, rightMax);
+            // Calculate proportional scroll values
+            const leftScroll = Math.min(scrollTop, leftMax);
+            const rightScroll = Math.min(scrollTop, rightMax);
+
+            left.scrollTop = leftScroll;
+            right.scrollTop = rightScroll;
         });
 
         function setActive(device) {
