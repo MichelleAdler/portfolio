@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress(0);
 
     function toggleDeviceSetup() {
-        console.info("Hypro project loaded");
+        console.info("Project content loaded");
         const options = document.querySelectorAll(".toggle-option");
         const indicator = document.getElementById("indicator");
         const pcImage = document.getElementById("pcImage");
@@ -372,37 +372,39 @@ document.addEventListener("DOMContentLoaded", () => {
             updateStuck(right);
         });
 
-        function setActive(device) {
-            options.forEach((opt) => opt.classList.remove("active"));
-            const selected = document.querySelector(
-                `.toggle-option[data-device="${device}"]`
-            );
-            selected.classList.add("active");
+        if (options.length > 0) {
+            function setActive(device) {
+                options.forEach((opt) => opt.classList.remove("active"));
+                const selected = document.querySelector(
+                    `.toggle-option[data-device="${device}"]`
+                );
+                selected.classList.add("active");
 
-            // Move indicator
-            indicator.style.left = selected.offsetLeft + "px";
+                // Move indicator
+                indicator.style.left = selected.offsetLeft + "px";
 
-            // Swap images
-            if (device === "pc") {
-                pcImage.classList.remove("hide");
-                pcImage.classList.add("show");
-                phoneImage.classList.remove("show");
-                phoneImage.classList.add("hide");
-            } else {
-                phoneImage.classList.remove("hide");
-                phoneImage.classList.add("show");
-                pcImage.classList.remove("show");
-                pcImage.classList.add("hide");
+                // Swap images
+                if (device === "pc") {
+                    pcImage.classList.remove("hide");
+                    pcImage.classList.add("show");
+                    phoneImage.classList.remove("show");
+                    phoneImage.classList.add("hide");
+                } else {
+                    phoneImage.classList.remove("hide");
+                    phoneImage.classList.add("show");
+                    pcImage.classList.remove("show");
+                    pcImage.classList.add("hide");
+                }
             }
-        }
 
-        const active = document.querySelector(".toggle-option.active");
-        indicator.style.left = active.offsetLeft + "px";
+            const active = document.querySelector(".toggle-option.active");
+            indicator.style.left = active.offsetLeft + "px";
 
-        options.forEach((opt) => {
-            opt.addEventListener("click", () => {
-                setActive(opt.dataset.device);
+            options.forEach((opt) => {
+                opt.addEventListener("click", () => {
+                    setActive(opt.dataset.device);
+                });
             });
-        });
+        }
     }
 });
