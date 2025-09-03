@@ -267,3 +267,26 @@ i:hover {
     align-items: center;
     grid-template-columns: auto auto;
 }
+
+.figma-wrapper {
+    position: relative;
+    width: 100%;
+    background: white;
+    /* white background behind phone */
+    padding-top: 90%;
+    /* adjust ratio to fit phone shape — start with ~200% for tall phones */
+    overflow: hidden;
+    border-radius: 12px;
+    /* optional: rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* optional: subtle shadow */
+}
+
+.figma-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
