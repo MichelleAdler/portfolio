@@ -406,5 +406,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         }
+
+        const iframe = document.getElementById("figma-frame");
+        const loader = document.getElementById("custom-loader");
+
+        if (iframe) {
+            // Also use the iframe load event as a fallback
+            iframe.addEventListener("load", function () {
+                hideLoader();
+            });
+
+            function hideLoader() {
+                setTimeout(() => (loader.style.display = "none"), 8000);
+            }
+        }
     }
 });

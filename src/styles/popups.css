@@ -276,7 +276,6 @@ i:hover {
     padding-top: 90%;
     /* adjust ratio to fit phone shape — start with ~200% for tall phones */
     overflow: hidden;
-    border-radius: 12px;
     /* optional: rounded corners */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     /* optional: subtle shadow */
@@ -289,4 +288,47 @@ i:hover {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Loader styles */
+.figma-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48vw;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+}
+
+.figma-loader .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #ff0000;
+    /* PostNet red for brand match */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+.figma-loader p {
+    font-size: 16px;
+    color: #333;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cx_pl16--OoGbQ,
+.cx_gap4--kYFS7 {
+    display: none !important;
 }
