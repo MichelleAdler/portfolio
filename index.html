@@ -14,6 +14,10 @@
 		<link rel="stylesheet" href="src/styles/navigation.css">
 		<script src="src/scripts/navigation.js" defer></script>
 		<script src="src/scripts/slider.js" defer></script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+			integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+			crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 
 	<body>
@@ -28,13 +32,13 @@
 						<li class="navbar__item">
 							<input type="radio" name="nav" id="tab-1" checked />
 							<label for="tab-1" class="navbar__link">
-								<span>Home</span>
+								<span>Projects</span>
 							</label>
 						</li>
 						<li class="navbar__item">
 							<input type="radio" name="nav" id="tab-2" />
 							<label for="tab-2" class="navbar__link">
-								<span>Messages</span>
+								<span>About</span>
 							</label>
 						</li>
 					</ul>
@@ -102,6 +106,7 @@
 							<li>Procreate</li>
 							<li>Inkscape</li>
 							<li>GIMP</li>
+							<li>CANVA</li>
 						</ul>
 						<div class="tools-logos">
 							<img src="src/media/logos/adobe.svg" alt="Adobe" title="Adobe Creative Suite" />
@@ -129,8 +134,8 @@
 						<h3>Experience</h3>
 						<ul>
 							<li>Freelance — Web Developer/Designer — Current</li>
+							<li>Jaxify Software — Web Developer/Designer — Jan 2021 - Feb 2024</li>
 							<li>Emma Pardoe Chartered Accountant — Admin & Receptionist — Mar 2023 - Oct 2023</li>
-							<li>Jozify Software — Web Developer/Designer — Jan 2021 - Feb 2023</li>
 							<li>Postnet — Counter Assistant — Oct 2020 - Apr 2021</li>
 						</ul>
 					</div>
@@ -162,7 +167,10 @@
 
 		<div class="popup-overlay hidden">
 			<div class="popup">
-				<button class="popup-close">X</button>
+				<div class="close-container popup-close">
+					<div class="leftright"></div>
+					<div class="rightleft"></div>
+				</div>
 				<div class="popup-content">
 					<!-- Popup content will be loaded here -->
 				</div>

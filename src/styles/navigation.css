@@ -37,7 +37,7 @@
 
 .navbar__link span {
     pointer-events: none;
-    color: #013255;
+    color: var(--navy-color);
     padding: 16px;
     font-size: 24px;
     border-radius: 30px;
@@ -51,7 +51,7 @@
     top: 1.3px;
     width: 12rem;
     height: 3rem;
-    background: #013255;
+    background: var(--navy-color);
     border-radius: 30px;
     transition: left 250ms cubic-bezier(1, 0.2, 0.1, 1.2);
     z-index: 0;

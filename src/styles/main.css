@@ -30,6 +30,8 @@ body {
     background-size: contain;
     color: #252627;
     overflow: hidden;
+    letter-spacing: -0.03em;
+    position: relative;
 }
 
 body {
@@ -68,7 +70,7 @@ header h1 {
     font-weight: 400;
     font-size: 86px;
     line-height: 64px;
-    color: #013255;
+    color: var(--navy-color);
     margin: 0;
 }
 
@@ -78,7 +80,7 @@ header p {
     font-weight: 400;
     font-size: 24px;
     line-height: 31px;
-    color: #013255;
+    color: var(--navy-color);
     margin: 24px 0 0;
 }
 
@@ -151,4 +153,15 @@ footer {
 
 .tools-logos img:hover {
     filter: none;
+}
+
+.center-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.margin-top {
+    margin-top: 3rem;
 }
