@@ -15,6 +15,7 @@ p {
     -moz-user-select: text;
     -o-user-select: text;
     user-select: text;
+    letter-spacing: 0.5px;
 }
 
 html,
@@ -52,6 +53,7 @@ body.no-bg {
 .page-content {
     grid-row: 2;
     grid-column: 1;
+    letter-spacing: 0.5px;
 }
 
 header {
