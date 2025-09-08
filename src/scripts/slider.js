@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "/src/pages/doodleDev.html",
         "/src/pages/hypro.html",
         "/src/pages/villa39.html",
-        "/src/pages/postnet.html",
     ];
 
     const projects = [
@@ -58,11 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "<br><br>" +
                 "| Branding, logo and website",
             colors: ["#4E4327", "#4C5547", "#7C8378", "#181918"],
-        },
-        {
-            title: "Postnet",
-            desc: "App concept and design",
-            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
         },
     ];
 
@@ -416,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             function hideLoader() {
-                setTimeout(() => (loader.style.display = "none"), 8000);
+                setTimeout(() => (loader.style.display = "none"), 2000);
             }
         }
     }

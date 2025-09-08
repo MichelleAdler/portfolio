@@ -37,7 +37,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 55% 45%;
-    gap: 16px;
+    gap: 2rem;
     margin: 10px;
     overflow: visible;
     /* Remove scroll from popup-content */
