@@ -113,12 +113,8 @@ footer {
 }
 
 .content-view {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7vw;
-    padding: 0px 10vw;
-    overflow: hidden;
+    width: 100%;
+    gap: 1vh;
 }
 
 .content-view h3 {
@@ -136,21 +132,6 @@ footer {
     margin-bottom: 10px;
 }
 
-.tools-logos {
-    display: flex;
-    gap: 24px;
-    margin-top: 18px;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.tools-logos img {
-    height: 38px;
-    width: auto;
-    filter: grayscale(0.2) brightness(0.95);
-    transition: filter 0.2s;
-}
-
 .tools-logos img:hover {
     filter: none;
 }
@@ -164,4 +145,25 @@ footer {
 
 .margin-top {
     margin-top: 3rem;
+}
+
+.table {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+    padding: 0px 10vw;
+    overflow: hidden;
+}
+
+.col-1 {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+}
+
+.col-2 {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
 }
