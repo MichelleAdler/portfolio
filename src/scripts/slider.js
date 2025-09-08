@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "/src/pages/doodleDev.html",
         "/src/pages/hypro.html",
         "/src/pages/villa39.html",
-        "/src/pages/postnet.html",
     ];
 
     const projects = [
@@ -40,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             desc:
                 "Software development company" +
                 "<br><br>" +
-                "| Branding and website",
+                "| Branding, logo and website",
             colors: ["#DDF344", "#A1BFFF", "#3B4883", "#D9D9D9"],
         },
         {
@@ -48,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             desc:
                 "Hydraulics components and services company" +
                 "<br><br>" +
-                "| Branding and website",
+                "| Branding, logo and website",
             colors: ["#ACC5DA", "#49637A", "#2E475C", "#172A3A"],
         },
         {
@@ -56,13 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
             desc:
                 "In-house goldsmith and jeweler" +
                 "<br><br>" +
-                "| Branding and website",
+                "| Branding, logo and website",
             colors: ["#4E4327", "#4C5547", "#7C8378", "#181918"],
-        },
-        {
-            title: "Postnet",
-            desc: "App concept and design",
-            colors: ["#D11532", "#080058", "#312E33", "#FFFFFF"],
         },
     ];
 
@@ -328,7 +322,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress(0);
 
     function toggleDeviceSetup() {
-        console.info("Project content loaded");
         const options = document.querySelectorAll(".toggle-option");
         const indicator = document.getElementById("indicator");
         const pcImage = document.getElementById("pcImage");
@@ -417,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             function hideLoader() {
-                setTimeout(() => (loader.style.display = "none"), 8000);
+                setTimeout(() => (loader.style.display = "none"), 2000);
             }
         }
     }
