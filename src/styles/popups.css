@@ -1,0 +1,334 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.popup-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: opacity 0.3s ease;
+}
+
+.popup {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: white;
+}
+
+.popup-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 2rem;
+    margin: 10px;
+    overflow: visible;
+    /* Remove scroll from popup-content */
+}
+
+.popup-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.popup-close {
+    position: absolute;
+    top: 6vh;
+    right: 6vw;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: black;
+    /* or a color that suits your popup */
+    z-index: 1001;
+}
+
+.popup-content .content-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: fit-content;
+    padding-bottom: 12px;
+}
+
+.popup-content .left-container {
+    align-items: center;
+    grid-column: 1;
+}
+
+.popup-content .right-container {
+    align-items: flex-start;
+    grid-column: 2;
+    margin-top: 3vh;
+}
+
+.close-container {
+    margin: auto;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1.5vw;
+}
+
+.leftright {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    margin-top: 24px;
+    background-color: black;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all .3s ease-in;
+}
+
+.rightleft {
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    margin-top: 24px;
+    background-color: black;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    transition: all .3s ease-in;
+}
+
+.close-container:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: var(--secondary-color);
+}
+
+.close-container:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: var(--secondary-color);
+}
+
+/* Base state: hide the scrollbar completely */
+.popup-content .content-container {
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 60px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    position: fixed;
+    bottom: 2rem;
+}
+
+.toggle-option {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.toggle-option svg {
+    width: 22px;
+    height: 22px;
+    fill: #bbb;
+    transition: fill 0.3s ease;
+}
+
+.toggle-option.active svg {
+    fill: #4f46e5;
+}
+
+.indicator {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #e0e7ff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 1;
+}
+
+img.hide {
+    display: none;
+    transition: all 0.4s ease;
+}
+
+img.show {
+    display: block;
+    transition: all 0.4s ease;
+}
+
+.right-container h1 {
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--navy-color);
+    padding-top: 1.3rem;
+}
+
+.right-container h2 {
+    font-size: 1.5rem;
+    margin-top: 1 rem;
+    margin-bottom: 1 rem;
+}
+
+.right-container .project-description {
+    display: grid;
+    gap: 4px;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+.right-container .project-description .left {
+    width: 100%;
+    grid-column: 1;
+    font-size: 3px;
+}
+
+.right-container .project-description .right {
+    width: 100%;
+    grid-column: 3;
+    font-size: 3px;
+}
+
+.right-container .project-description h2 {
+    width: fit-content;
+    grid-column: 2;
+}
+
+.right-container h3 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.right-container ul {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.right-container p {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+i:hover {
+    color: var(--secondary-color);
+}
+
+.toggle-option.active i {
+    color: var(--secondary-color);
+}
+
+.left-container.stuck,
+.right-container.stuck {
+    box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-grid {
+    display: grid;
+    width: 100%;
+    align-items: center;
+    grid-template-columns: auto auto;
+}
+
+.figma-wrapper {
+    position: relative;
+    width: 100%;
+    background: white;
+    /* white background behind phone */
+    padding-top: 90%;
+    /* adjust ratio to fit phone shape — start with ~200% for tall phones */
+    overflow: hidden;
+    /* optional: rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* optional: subtle shadow */
+}
+
+.figma-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Loader styles */
+.figma-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48vw;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+}
+
+.figma-loader .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #ff0000;
+    /* PostNet red for brand match */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+.figma-loader p {
+    font-size: 16px;
+    color: #333;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cx_pl16--OoGbQ,
+.cx_gap4--kYFS7 {
+    display: none !important;
+}

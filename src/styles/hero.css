@@ -1,0 +1,308 @@
+:root {
+    --primary-color: #252627;
+    --secondary-color: #EA4545;
+    --background-color: #F3F8FF;
+    --navy-color: #013255;
+}
+
+.hero {
+    display: grid;
+    width: 100vw;
+    padding: 0 5vw;
+    align-items: center;
+    height: 100%;
+    grid-template-columns: 14vw 69vw;
+}
+
+.project-content {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.content-view.hidden {
+    display: none;
+}
+
+.hero.hidden {
+    display: none !important;
+}
+
+/* Sidebar for project info */
+.project-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    grid-row: 1;
+    grid-column: 1;
+    height: 100%;
+    padding-top: 6vh;
+    max-width: 14vw;
+}
+
+.project-title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 40px;
+    color: var(--primary-color);
+    border-bottom: var(--primary-color) 1px solid;
+    padding-right: 2vw;
+    padding-bottom: 1vh;
+    font-family: 'Archivo', sans-serif;
+}
+
+.project-desc {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.palette {
+    display: grid;
+    gap: 5px;
+    margin-bottom: 18px;
+}
+
+.palette .color {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid #ddd;
+}
+
+.palette .color.dot-1 {
+    background: #D11532;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.palette .color.dot-2 {
+    background: #080058;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.palette .color.dot-3 {
+    background: #312E33;
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.palette .color.dot-4 {
+    background: #FFFFFF;
+    border: 1px solid #232323;
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.project-content {
+    height: 100%;
+    padding: 0vh 6vw;
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+.slider-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    transform: rotate(-45deg);
+    width: 33vw;
+    height: 100%;
+    gap: 6vw;
+    overflow-x: hidden;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* make sure container fills height */
+}
+
+.slider {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+    transition: transform 0.5s ease;
+    will-change: transform;
+    gap: 6vw;
+    overflow: scroll;
+    /* or auto */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+
+    overflow-y: auto;
+    /* required for scrolling to work */
+    overflow: visible;
+}
+
+.slider::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
+}
+
+.slider-wrapper::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
+}
+
+.slider-block {
+    background: #F3F8FF;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 25vw;
+    height: 31vh;
+    scroll-snap-align: start;
+    animation: all 0.3s ease-in-out;
+    box-shadow: -8px 8px 20px rgba(0, 0, 0, 0.25);
+    margin-left: 50px;
+}
+
+.slider-block img {
+    width: 11vw;
+    object-fit: cover;
+    display: block;
+}
+
+.scroll-bar-container {
+    height: 50vh;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+    position: absolute;
+    top: 11vh;
+    right: 33vw;
+    transform: rotate(-45deg);
+    max-width: 3vw;
+    width: 3vw;
+    justify-content: center;
+}
+
+.scroll-bar {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scroll-bar::before {
+    content: "";
+    width: 2px;
+    height: 95%;
+    background: var(--navy-color);
+    pointer-events: none;
+    display: flex;
+    position: absolute;
+    bottom: 2px;
+    box-shadow: -8px 8px 20px rgba(0, 0, 0, 5);
+}
+
+.scroll-thumb {
+    width: 14px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1.5px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+    z-index: 2;
+}
+
+.scroll-thumb.active {
+    width: 18px;
+    height: 13px;
+    transition: all 0.2s ease;
+}
+
+.scroll-progress {
+    transition: height 0.4s ease;
+    content: "";
+    width: 5px;
+    background: var(--secondary-color);
+    pointer-events: none;
+    display: flex;
+    position: absolute;
+    top: 0px;
+}
+
+.slider-wrapper {
+    position: relative;
+}
+
+.slider-block {
+    opacity: 1;
+    transition: opacity 0.9s ease 0.15s;
+    /* 150ms delay */
+    pointer-events: auto;
+    position: relative;
+}
+
+.slider-block.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slider-block.fade-out {
+    opacity: 0;
+    /* Match JS animation duration */
+}
+
+.slider-mask {
+    height: 35vh;
+    /* match your slider-block height */
+    width: 33vw;
+    position: relative;
+}
+
+.hyproCard {
+    background-color: #0D0D0D;
+}
+
+.doodleDevCard {
+    background-color: #A1BFFF;
+}
+
+.villa39Card {
+    background-color: #EEEEEE;
+}
+
+/* Style for the bubble tooltip */
+.tooltip {
+    position: absolute;
+    left: 50%;
+    transform: translateY(-124%);
+    transform: translateY(-1.5vh) translateX(1vw);
+    width: max-content;
+    padding: 0.6em 1em;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    border-radius: 10px;
+    background: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.scroll-thumb:hover {
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+.scroll-thumb:hover .tooltip {
+    /* Adjusted position for the bubble tooltip */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}

@@ -5,19 +5,172 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Michelle Adler Portfolio</title>
-		<link rel="stylesheet" href="/src/styles/main.css" />
-		<link rel="stylesheet" href="/src/styles/reactiveBackground.css" />
-		<script src="/src/scripts/main.js" defer></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Akatab&family=Archivo+Black&family=Didact+Gothic&display=swap"
+			rel="stylesheet">
+		<link rel="stylesheet" href="src/styles/main.css">
+		<link rel="stylesheet" href="src/styles/hero.css">
+		<link rel="stylesheet" href="src/styles/popups.css">
+		<link rel="stylesheet" href="src/styles/navigation.css">
+		<script src="src/scripts/navigation.js" defer></script>
+		<script src="src/scripts/slider.js" defer></script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+			integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+			crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 
 	<body>
-		<canvas id="c"></canvas>
+		<div class="page-container">
+			<header>
+				<div>
+					<h1>Michellé Adler</h1>
+					<p>UX / UI | Web | Graphic Design</p>
+				</div>
+				<nav class="navbar">
+					<ul class="navbar__menu">
+						<li class="navbar__item">
+							<input type="radio" name="nav" id="tab-1" checked />
+							<label for="tab-1" class="navbar__link">
+								<span>Projects</span>
+							</label>
+						</li>
+						<li class="navbar__item">
+							<input type="radio" name="nav" id="tab-2" />
+							<label for="tab-2" class="navbar__link">
+								<span>About</span>
+							</label>
+						</li>
+					</ul>
+				</nav>
+			</header>
 
-		<div class="content">
+			<div class="page-content">
+				<section class="hero" id="heroView">
+					<div class="project-sidebar">
+						<div class="palette">
+							<span class="color dot-1"></span>
+							<span class="color dot-2"></span>
+							<span class="color dot-3"></span>
+							<span class="color dot-4"></span>
+						</div>
+						<div class="project-title">Postnet</div>
+						<div class="project-desc">Stationary and courier company<br><br>| Mobile app design</div>
+					</div>
+					<div class="project-content">
+						<div class="slider-wrapper">
+							<div class="slider-container">
+								<div class="slider-mask">
+									<div class="slider">
+										<span class="slider-block">
+											<img src="/src/media/projects/postnet/postnetLogo.svg" alt="PostNet Logo" />
+										</span>
+										<span class="slider-block hidden doodleDevCard">
+											<img src="/src/media/projects/doodleDev/doodleDevLogo.svg"
+												alt="Doodle Dev Logo" />
+										</span>
+										<span class="slider-block hidden hyproCard">
+											<img src="/src/media/projects/hypro/hyproLogo.svg" alt="Hypro Logo" />
+										</span>
+										<span class="slider-block hidden villa39Card">
+											<img src="/src/media/projects/villa39/villa39Logo.svg"
+												alt="Villa 39 Logo" />
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="scroll-bar-container">
+							<div class="scroll-bar">
+								<div class="scroll-progress"></div>
+								<span class="scroll-thumb"><span class="tooltip">Postnet</span></span>
+								<span class="scroll-thumb"><span class="tooltip">Doodle Dev</span></span>
+								<span class="scroll-thumb"><span class="tooltip">Hypro</span></span>
+								<span class="scroll-thumb"><span class="tooltip">Villa 39</span></span>
+							</div>
+						</div>
+					</div>
 
-		</div>
+				</section>
 
-		<div class="custom-cursor"></div>
+				<section class="content-view" id="aboutView">
+					<div class="table">
+						<!-- Tools -->
+						<div class="col-1">
+							<h3>Tools</h3>
+							<ul>
+								<li>Adobe Creative Suite (Photoshop, Illustrator, InDesign, XD)</li>
+								<li>Figma</li>
+								<li>Procreate</li>
+								<li>Canva</li>
+								<li>Inkscape and GIMP</li>
+							</ul>
+							<br>
+							<h3>Education</h3>
+							<ul>
+								<li><b>Google:</b><br> UX Design Professional Certificate</li>
+								<li><b>Udemy:</b><br> Web Developer Bootcamp</li>
+								<li><b>AIE:</b><br> National Certificate in Architectural Technology</li>
+								<li><b>High School:</b><br> National Senior Certificate</li>
+							</ul>
+							<br>
+							<h3>Languages</h3>
+							<ul>
+								<li>English and Afrikaans (Fluent)</li>
+								<li>German (Basic)</li>
+							</ul>
+						</div>
+
+						<!-- Skills -->
+						<div class="col-2">
+							<h3>Skills</h3>
+							<ul>
+								<li>Social Media Design — posts, carousels, ad creatives</li>
+								<li>Print Design — flyers, brochures, event collateral</li>
+								<li>UX/UI Design and Prototyping</li>
+								<li>Responsive Web Layouts (HTML/CSS)</li>
+								<li>Typography and Visual Hierarchy</li>
+								<li>Branding and Visual Storytelling</li>
+								<li>Team Collaboration and Iteration</li>
+							</ul>
+							<br>
+							<h3>Experience</h3>
+							<ul>
+								<li><b>Freelance Designer:</b><br> Branding, social media, and web design - Current</li>
+								<li><b>Jaxify Software:</b><br> Web and Graphic Designer/Developer - Jan 2021 – Feb 2024
+								</li>
+								<li><b>Emma Pardoe Chartered Accountant:</b><br> Admin and Reception - Mar 2023 – Oct
+									2023
+								</li>
+								<li><b>PostNet:</b><br> Counter Assistant - Oct 2020 – Apr 2021</li>
+							</ul>
+						</div>
+
+
+					</div>
+				</section>
+			</div>
+			<footer>
+				<div>
+					<p>081 763 8972</p>
+					<p>michelle2000adler@gmail.com</p>
+				</div>
+				<a href="https://www.linkedin.com/in/michelle-adler-a66a361ab/" target="_blank" class="linkedin-icon">
+					<img src="/src/media/logos/linkedIn.svg" alt="LinkedIn" />
+				</a>
+			</footer>
+
+			<div class="popup-overlay hidden">
+				<div class="popup">
+					<div class="close-container popup-close">
+						<div class="leftright"></div>
+						<div class="rightleft"></div>
+					</div>
+					<div class="popup-content">
+						<!-- Popup content will be loaded here -->
+					</div>
+				</div>
+			</div>
 
 	</body>
 
