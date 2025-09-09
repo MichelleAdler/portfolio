@@ -269,7 +269,7 @@ i:hover {
     background: white;
     /* white background behind phone */
     padding-top: 90%;
-    /* adjust ratio to fit phone shape — start with ~200% for tall phones */
+    /* adjust ratio to fit phone shape  start with ~200% for tall phones */
     overflow: hidden;
     /* optional: rounded corners */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

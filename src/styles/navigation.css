@@ -4,7 +4,7 @@
     height: 5.5rem;
 }
 
-.navbar__menu {
+.navbar-menu {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -14,15 +14,15 @@
     list-style: none;
 }
 
-.navbar__item {
+.navbar-item {
     position: relative;
 }
 
-.navbar__item input[type="radio"] {
+.navbar-item input[type="radio"] {
     display: none;
 }
 
-.navbar__link {
+.navbar-link {
     position: relative;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@
     z-index: 1;
 }
 
-.navbar__link span {
+.navbar-link span {
     pointer-events: none;
     color: var(--navy-color);
     padding: 16px;

@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showProjects();
 
-    const menu = document.querySelector(".navbar__menu");
+    const menu = document.querySelector(".navbar-menu");
     const radios = document.querySelectorAll(
-        '.navbar__item input[type="radio"]'
+        '.navbar-item input[type="radio"]'
     );
 
     // Create gooey highlight div once
