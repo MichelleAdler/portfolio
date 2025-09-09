@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupClose = document.querySelector(".popup-close");
 
     const popupFiles = [
-        "/src/pages/postnet.html",
-        "/src/pages/doodleDev.html",
-        "/src/pages/hypro.html",
-        "/src/pages/villa39.html",
+        "src/pages/postnet.html",
+        "src/pages/doodleDev.html",
+        "src/pages/hypro.html",
+        "src/pages/villa39.html",
     ];
 
     const projects = [
