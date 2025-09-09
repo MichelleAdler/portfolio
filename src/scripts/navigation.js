@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectsRadio = document.getElementById("tab-1");
     const heroView = document.getElementById("heroView");
     const aboutView = document.getElementById("aboutView");
+    const container = document.querySelector(".page-content");
 
     function showAbout() {
         document.body.classList.add("no-bg");
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroView.style.display = "none";
         heroView.classList.remove("active");
         aboutView.classList.add("active");
+        container.classList.remove("no-scroll");
     }
 
     function showProjects() {
@@ -18,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroView.style.display = "grid";
         heroView.classList.add("active");
         aboutView.classList.remove("active");
+        container.classList.add("no-scroll");
     }
 
     aboutRadio.addEventListener("change", () => {
