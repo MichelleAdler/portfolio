@@ -36,7 +36,7 @@ body {
 }
 
 body {
-    background-image: url('/src/media/background.svg');
+    background-image: url('src/media/background.svg');
 }
 
 body.no-bg {
