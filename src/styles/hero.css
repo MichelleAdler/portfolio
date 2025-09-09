@@ -112,6 +112,10 @@
     height: 100%;
     gap: 6vw;
     overflow-x: hidden;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
 }
 
 .slider-container {
@@ -119,6 +123,15 @@
     justify-content: flex-end;
     align-items: center;
     /* make sure container fills height */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+.slider-container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
 }
 
 .slider {
